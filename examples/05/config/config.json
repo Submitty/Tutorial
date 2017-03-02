@@ -1,0 +1,24 @@
+{
+    "testcases" : [
+        {
+	    // Static analysis can also be performed upon C++ code.
+	    // Here, no compilation is performed at all; instead, student code is examined to
+	    // ensure that it does not use the "goto" keyword.
+            "title" : "C++ - Check for goto",
+            "command" : [ "submitty_count_token -l c goto *.cpp" ],
+	    "points" : 10,
+            "validation" : [
+                {
+                    "method" : "intComparison",
+                    "actual_file" : "STDOUT_0.txt",
+                    "description" : "Number of `goto`",
+		    "comparison" : "eq",
+                    "term" : 0,
+                    "failure_message" : "You must not use the `goto` keyword.",
+                    "show_message" : "on_failure",
+                    "show_actual" : "never"
+                }
+            ]
+        }
+    ]
+}

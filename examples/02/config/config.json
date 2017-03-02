@@ -1,0 +1,26 @@
+{
+    "testcases" : [
+	// For compiled languages, typically two testcases are used to allow points
+	// to be asssigned independently for compilation and execution.
+        {
+            "type" : "Compilation", // Indicate that this is a compilation step.
+            "title" : "C++ - Compilation",
+            "command" : "clang++ -Wall -o a.out -- *.cpp",
+            "executable_name" : "a.out", // Name of the result of compilation.
+            "points" : 5 // Point value of compilation.
+        },
+        {
+            "title" : "C++ - Execution",
+            "command" : "./a.out",
+            "points" : 15, // Point value of correct output.
+            "validation" : [
+                {
+                    "method" : "myersDiffbyLinebyChar",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Program Output",
+                    "expected_file" : "test1_output.txt"
+                }
+            ]
+        }
+    ]
+}
