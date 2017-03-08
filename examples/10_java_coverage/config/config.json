@@ -1,0 +1,78 @@
+{
+    "testcases" : [
+	// Furthermore, instructors can request students to write their own JUnit test cases, and
+	// test coverage can be measured and graded using EMMA, a free Java code coverage tool.
+	// This can be done alongside normal instructor-provided JUnit test-based grading.
+        {
+            "type" : "Compilation",
+            "title" : "Java - Compilation",
+            "command" : "javac -cp submitty_junit.jar hw0/Factorial.java",
+            "executable_name" : "hw0/Factorial.class",
+            "points" : 2
+        },
+        {
+            "type" : "Compilation",
+            "title" : "Java - Student and Instructor JUnit Test Compilation",
+            "command" : "javac -cp submitty_junit.jar:. hw0/test/*Test.java",
+            "executable_name" : "hw0/test/FactorialTest.class",
+            "points" : 2
+        },
+
+        {
+            "title" : "Java - Instrumentation of Student Code",
+            "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
+            "points" : 0,
+            "validation" : [ 
+                { 
+                    "method" : "EmmaInstrumentationGrader",
+                    "actual_file" : "STDOUT.txt"
+                }
+            ]
+        },
+
+        {
+            "title" : "Java - Running Student JUnit Tests in hw0/tests/",
+            "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:submitty_junit/:. TestRunner hw0",
+            "points" : 4,
+            "validation" : [
+                { 
+                    "method" : "MultipleJUnitTestGrader",
+                    "actual_file" : "STDOUT.txt"
+                }
+            ]
+        },
+
+        {
+            "title" : "Java - Generating Coverage Report for Student Tests",
+            "command" : "java -cp submitty_emma.jar emma report -r txt -in coverage.em,coverage.ec -Dreport.txt.out.file=emma_report.txt",
+            "points" : 6,
+            "validation" : [
+                {
+                    "method" : "errorIfEmpty",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "EclEmma report generation output",
+                    "deduction" : 0.0
+                },
+	        {
+                    "method" : "EmmaCoverageReportGrader",
+                    "actual_file" : "emma_report.txt",
+                    "coverage_threshold" : 90,
+                    "deduction" : 1.0
+                }
+            ]
+        },
+
+        {
+            "title" : "Java - Instructor JUnit Tests",
+            "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
+            "points" : 6,
+            "validation" : [
+                {
+                    "method" : "JUnitTestGrader",
+                    "actual_file" : "STDOUT.txt",
+                    "num_tests" : 4
+                }
+            ]
+        }
+    ]
+}
