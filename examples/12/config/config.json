@@ -1,0 +1,36 @@
+{
+    "resource_limits" : {
+        "RLIMIT_CPU" : 10, // Allow the submission to run for 10 seconds.
+        "RLIMIT_NPROC" : 20 // Allow up to 20 additional processes launched by the student code.
+    },
+
+    // Allow the student code to use IPC and multiprocessing system calls.
+    "allow_system_calls" : [
+	"ALLOW_SYSTEM_CALL_CATEGORY_COMMUNICATIONS_AND_NETWORKING_INTERPROCESS_COMMUNICATION",
+	"ALLOW_SYSTEM_CALL_CATEGORY_PROCESS_CONTROL_NEW_PROCESS_THREAD"
+    ],
+
+    "testcases" : [
+	{
+	    "type" : "Compilation",
+	    "title" : "C - Compilation",
+	    "command" : "/usr/bin/gcc -Wall -o a.out *.c",
+	    "executable_name" : "a.out",
+	    "points" : 2
+	},
+	{
+	    "title" : "C - Execution",
+	    "command" : "./a.out 10",
+	    "points" : 4,
+	    "validation" : [
+                {
+                    "method" : "searchToken",
+                    "data" : [ "ALL DONE! 10 successful forks" ],
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Standard Output (STDOUT)",
+                    "deduction" : 1.0
+                }
+	    ]
+	}
+    ]
+}
