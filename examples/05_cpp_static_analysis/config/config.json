@@ -1,4 +1,10 @@
 {
+    "resource_limits" : {
+        "RLIMIT_CPU" : 60,
+        "RLIMIT_NPROC" : 100,
+        "RLIMIT_AS" : "RLIM_INFINITY"
+    },
+
     "testcases" : [
         {
 	    // Static analysis can also be performed upon C++ code.

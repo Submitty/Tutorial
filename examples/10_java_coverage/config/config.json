@@ -1,4 +1,10 @@
 {
+    "resource_limits" : {
+        "RLIMIT_CPU" : 60,
+        "RLIMIT_NPROC" : 100,
+        "RLIMIT_AS" : "RLIM_INFINITY"
+    },
+
     "testcases" : [
 	// Furthermore, instructors can request students to write their own JUnit test cases, and
 	// test coverage can be measured and graded using EMMA, a free Java code coverage tool.

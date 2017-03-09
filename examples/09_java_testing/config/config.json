@@ -1,4 +1,10 @@
 {
+    "resource_limits" : {
+        "RLIMIT_CPU" : 60,
+        "RLIMIT_NPROC" : 100,
+        "RLIMIT_AS" : "RLIM_INFINITY"
+    },
+
     "testcases" : [
 	// The Submitty system supports Java, and Java code can be graded by running JUnit tests.
         {
