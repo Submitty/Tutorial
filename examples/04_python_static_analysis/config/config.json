@@ -1,42 +1,49 @@
 {
-    "resource_limits" : {
-        "RLIMIT_CPU" : 60,
-        "RLIMIT_NPROC" : 100,
-        "RLIMIT_AS" : "RLIM_INFINITY"
-    },
+  "resource_limits" : {
+    "RLIMIT_CPU" : 60,
+    "RLIMIT_NPROC" : 100,
+    "RLIMIT_AS" : "RLIM_INFINITY"
+  },
 
-    "testcases" : [
+  "testcases" : [
+    {
+      "title" : "Python - Count Calls to print",
+
+      // Here, multiple commands are provided (to be executed in sequence).
+      // The first is to execute the student code, the second is to count the number of calls to the
+      // "print" function.
+      "command" : [ "python *.py",
+                    "submitty_count_function -l python3 print *.py" ],
+      "points" : 10,
+      "validation" : [
+        // First, ensure that the student received the correct answer.
         {
-            "title" : "Python - Count Calls to print",
+          "method" : "myersDiffbyLinebyChar",
+          "actual_file" : "STDOUT_0.txt",
+          "description" : "Program Output",
+          "expected_file" : "output.txt"
+        },
+        {
+          // Grade by comparing the contents of a file to a given integer.
+          "method" : "intComparison",
+          // Use the output of the second command.
+          "actual_file" : "STDOUT_1.txt",
+          "description" : "Number of print statements",
 
-	    // Here, multiple commands are provided (to be executed in sequence).
-	    // The first is to execute the student code, the second is to count the number of calls to the
-	    // "print" function.
-            "command" : [ "python *.py",
-                          "submitty_count_function -l python3 print *.py" ],
-            "points" : 10,
-            "validation" : [
-		// First, ensure that the student received the correct answer.
-                {
-                    "method" : "myersDiffbyLinebyChar",
-                    "actual_file" : "STDOUT_0.txt",
-                    "description" : "Program Output",
-                    "expected_file" : "output.txt"
-                },
-                {
-                    "method" : "intComparison", // Grade by comparing the contents of a file to a given integer.
-                    "actual_file" : "STDOUT_1.txt", // Use the output of the second command.
-                    "description" : "Number of print statements",
+          // The method by which to compare the output of "submitty_count_node"
+          // against the provided term (here, "greater-than-or-equal" is used).
+          "comparison" : "ge",
+          // The integer against which to compare.
+          "term" : 1,
 
-		    "comparison" : "ge", // The method by which to compare the output of "submitty_count_node"
-		                         // against the provided term (here, "greater-than-or-equal" is used).
-                    "term" : 1, // The integer against which to compare.
-
-                    "failure_message" : "Looks like you forgot the 'print' statement.", // Message to the student.
-                    "show_message" : "on_failure", // Only display a message if the test failed.
-                    "show_actual" : "never" // Hide the student/instructor comparison.
-                }
-            ]
+          // Message to the student.
+          "failure_message" : "Looks like you forgot the 'print' statement.",
+          // Only display a message if the test failed.
+          "show_message" : "on_failure",
+          // Hide the student/instructor comparison.
+          "show_actual" : "never"
         }
-    ]
+      ]
+    }
+  ]
 }
