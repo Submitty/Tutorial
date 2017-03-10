@@ -21,7 +21,7 @@
               // of a command in the "command" list above: since
               // "python *.py" is the first command, it's output
               // will be written to "STDOUT_0.txt".
-              "actual_file" : "STDOUT_0.txt",
+              "actual_file" : "STDOUT.txt",
               // The title seen by students.
               "description" : "Program Output",
               // The instructor-provided file (the correct answer).
