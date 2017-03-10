@@ -8,7 +8,7 @@
   "testcases" : [
     {
       "title" : "Python - Distinguish for and while Loops",
-      "command" : [ "submitty_count_token for *.py",
+      "command" : [ "submitty_count_node for *.py",
                     "submitty_count_token while *.py" ],
       "points" : 2,
       "validation" : [
