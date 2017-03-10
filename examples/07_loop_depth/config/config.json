@@ -24,8 +24,8 @@
           "term" : 3,
 
           "failure_message" : "Must have less than four nested loops",
-          "show_message" : "on_failure",
-          "show_actual" : "never"
+          "show_message" : "always",
+          "show_actual" : "always"
         }
       ]
     }
