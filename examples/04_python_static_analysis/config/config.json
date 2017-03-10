@@ -13,9 +13,9 @@
       // The first is to execute the student code, the second is to count the number of calls to the
       // "print" function.
       "command" : [ "python *.py",
-	            "submitty_count_node -l python2 assign part3/*.py",
-		    "submitty_count_node -l python2 mul part3/*.py",
-		    "submitty_count_node -l python2 add part3/*.py" ],
+	            "submitty_count_node -l python2 assign *.py",
+		    "submitty_count_node -l python2 mul *.py",
+		    "submitty_count_node -l python2 add *.py" ],
       "points" : 4,
       "validation" : [
         // First, ensure that the student received the correct answer.
