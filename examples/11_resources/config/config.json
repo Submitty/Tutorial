@@ -1,7 +1,7 @@
 {
   "resource_limits" : {
       // Allow the submission to run for 100 seconds.
-      "RLIMIT_CPU" : 100,
+      "RLIMIT_CPU" : 100
   },
 
   "testcases" : [
