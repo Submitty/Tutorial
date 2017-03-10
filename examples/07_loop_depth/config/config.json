@@ -12,7 +12,8 @@
       // Here, an instructor-provided static analysis script is used, rather
       // than one of the provided scripts like count_token and count_function.
       // This works in much the same way as those scripts.
-      "command" : [ "python3 loopdepth *.py" ],
+      "command" : [ "mv loopdepth.py loopdepth",
+	            "python3 loopdepth *.py" ],
       "points" : 10,
       "validation" : [
         {
