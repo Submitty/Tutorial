@@ -23,7 +23,7 @@
           "method" : "myersDiffbyLinebyChar",
 	  "actual_file" : "STDOUT_0.txt",
 	  "description" : "Program Output",
-	  "expected_file" : "p3_out.txt"
+	  "expected_file" : "output.txt"
 	},
 	{
           // Grade by comparing the contents of a file to a given integer.
