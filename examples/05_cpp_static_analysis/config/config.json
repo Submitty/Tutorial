@@ -11,6 +11,7 @@
       // Here, no compilation is performed at all; instead, student code is examined to
       // ensure that it does not use the "goto" keyword.
       "title" : "C++ - Check for goto",
+      "type" : "Compilation",
       "command" : [ "submitty_count_token -l c goto *.cpp" ],
       "points" : 10,
       "validation" : [
