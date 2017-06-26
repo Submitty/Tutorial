@@ -1,40 +1,61 @@
 {
-  "resource_limits" : {
-    // Allow the submission to run for 10 seconds.
-    "RLIMIT_CPU" : 10,
-    // Allow up to 20 additional processes launched by the student code.
-    "RLIMIT_NPROC" : 20
-  },
-
-  // Allow the student code to use IPC and multiprocessing system calls.
-  "allow_system_calls" : [
-    // This allows us to use ipc, pipe, semop, shmat, shmtcl, ...
-    "ALLOW_SYSTEM_CALL_CATEGORY_COMMUNICATIONS_AND_NETWORKING_INTERPROCESS_COMMUNICATION",
-    // This allows us to use clone, execve, fork, set_tid_address, vfork
-    "ALLOW_SYSTEM_CALL_CATEGORY_PROCESS_CONTROL_NEW_PROCESS_THREAD"
-  ],
-
-  "testcases" : [
-    {
-      "type" : "Compilation",
-      "title" : "C - Compilation",
-      "command" : "/usr/bin/gcc -Wall -o a.out *.c",
-      "executable_name" : "a.out",
-      "points" : 2
+    "resource_limits" : {
+        // Allow the submission to run for 10 seconds.
+        "RLIMIT_CPU" : 10,
+        // Allow up to 20 additional processes launched by the student code.
+        "RLIMIT_NPROC" : 20
     },
-    {
-      "title" : "C - Execution",
-      "command" : "./a.out 10",
-      "points" : 4,
-      "validation" : [
+
+    // Allow the student code to use IPC and multiprocessing system calls.
+    "allow_system_calls" : [
+        // This allows us to use ipc, pipe, semop, shmat, shmtcl, ...
+        "ALLOW_SYSTEM_CALL_CATEGORY_COMMUNICATIONS_AND_NETWORKING_INTERPROCESS_COMMUNICATION",
+        // This allows us to use clone, execve, fork, set_tid_address, vfork
+        "ALLOW_SYSTEM_CALL_CATEGORY_PROCESS_CONTROL_NEW_PROCESS_THREAD"
+    ],
+
+    "testcases" : [
         {
-          "method" : "searchToken",
-          "data" : [ "ALL DONE! 10 successful forks" ],
-          "actual_file" : "STDOUT.txt",
-          "description" : "Standard Output (STDOUT)",
-          "deduction" : 1.0
-        }
-      ]
-    }
-  ]
+            "type" : "Compilation",
+            "title" : "Compilation",
+            "command" : "/usr/bin/gcc -Wall -o a.out *.c",
+            "executable_name" : "a.out",
+            "points" : 2
+        },
+
+        // Launch 10 new threads.
+        // This should work whether they are in parallel or serial.
+	{
+	    "title" : "./a.out 10",
+	    "command" : "./a.out 10",
+	    "points" : 4,
+	    "validation" : [
+                {
+                    "method" : "searchToken",
+                    "data" : [ "ALL DONE! 10 successful forks" ],
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Standard Output (STDOUT)",
+                    "deduction" : 1.0
+                }
+	    ]
+	},
+
+        // Launch 30 new threads.
+        // This should work in serial, but will not work in parallel
+        // because of the restricted resource limits.
+        {
+	    "title" : "./a.out 30",
+	    "command" : "./a.out 30",
+	    "points" : 4,
+	    "validation" : [
+                {
+                    "method" : "searchToken",
+                    "data" : [ "ALL DONE! 30 successful forks" ],
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Standard Output (STDOUT)",
+                    "deduction" : 1.0
+                }
+	    ]
+	}
+    ]
 }
