@@ -3,6 +3,6 @@
 
 int main()
 {
-	sleep(50);
+	sleep(25);
 	std::cout << "Hello, world!" << std::endl;
 }
