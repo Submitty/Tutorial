@@ -3,6 +3,7 @@
         "RLIMIT_CPU" : 60,
         "RLIMIT_NPROC" : 100,
         "RLIMIT_AS" : "RLIM_INFINITY"
+        "RLIMIT_SIGPENDING" : 100
     },
 
     // Static analysis can also be performed upon C++ code.
@@ -12,8 +13,8 @@
         {
             
             "title" : "Check for goto and auto",
-            "command" : [ "submitty_count_token -l c goto *.cpp",
-                          "submitty_count_token -l c auto *.cpp" ],
+            "command" : [ "submitty_count token -l c Goto *.cpp",
+                          "submitty_count token -l c Auto *.cpp" ],
             "points" : 2,
             "validation" : [
                 {

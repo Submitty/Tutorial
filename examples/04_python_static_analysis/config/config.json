@@ -3,6 +3,7 @@
     "RLIMIT_CPU" : 60,
     "RLIMIT_NPROC" : 100,
     "RLIMIT_AS" : "RLIM_INFINITY"
+    "RLIMIT_SIGPENDING" : 100
   },
 
   "testcases" : [
@@ -13,9 +14,9 @@
       // The first is to execute the student code, the second is to count the number of calls to the
       // "print" function.
       "command" : [ "python *.py",
-	            "submitty_count_node -l python2 assign *.py",
-		    "submitty_count_node -l python2 mul *.py",
-		    "submitty_count_node -l python2 add *.py" ],
+	            "submitty_count token -l python Equal *.py",
+		    "submitty_count token -l python Asterisk *.py",
+		    "submitty_count token -l python Plus *.py" ],
       "points" : 4,
       "validation" : [
         // First, ensure that the student received the correct answer.
