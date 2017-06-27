@@ -28,7 +28,7 @@
                     "deduction" : 1.0
                 }
             ]
-        }
+        },
 
         // Valgrind is a similar tool
         {
