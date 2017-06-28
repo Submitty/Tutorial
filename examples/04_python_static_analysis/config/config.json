@@ -33,7 +33,7 @@
 	  "actual_file" : "STDOUT_1.txt",
 	  "description" : "Number of assignments",
 
-          // The method by which to compare the output of "submitty_count_node"
+          // The method by which to compare the output of "submitty_count"
           // against the provided term (here, "greater-than-or-equal" is used).
 	  "comparison" : "ge",
           // The integer against which to compare.
