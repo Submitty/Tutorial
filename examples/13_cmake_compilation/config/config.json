@@ -15,7 +15,7 @@
 
         // *************** TEST CASES *****************
         {
-            "title" : "Run cube program hw4",
+            "title" : "Test Output",
             "command" : "./a.out",
             "points" : 6,
             "validation" : 
