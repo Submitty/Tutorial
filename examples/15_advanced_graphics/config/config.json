@@ -85,7 +85,6 @@
             "title" : "Graphics program 1",
             "command" : "./a.out -input sierpinski_triangle.txt -size 400 -iters 0 -cubes",
             "actions" : [
-                        "type 'm'",
                         "click and drag delta 50 -125",
                         "delay 1",
                         "screenshot",
