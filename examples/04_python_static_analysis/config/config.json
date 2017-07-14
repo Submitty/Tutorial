@@ -13,7 +13,7 @@
       // Here, multiple commands are provided (to be executed in sequence).
       // The first is to execute the student code, the second is to count the number of calls to the
       // "print" function.
-      "command" : [ "python *.py",
+      "command" : [ "python3 *.py",
 	            "submitty_count token -l python Equal *.py",
 		    "submitty_count token -l python Asterisk *.py",
 		    "submitty_count token -l python Plus *.py" ],
