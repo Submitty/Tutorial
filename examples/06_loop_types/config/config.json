@@ -9,7 +9,7 @@
     {
       "title" : "Python - Distinguish for and while Loops",
       "command" : [ "submitty_count node for *.py",
-                    "submitty_count token while *.py" ],
+                    "submitty_count token While *.py" ],
       "points" : 2,
       "validation" : [
         {
