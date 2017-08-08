@@ -19,7 +19,7 @@
       "type" : "Compilation",
       "title" : "Java - Instructor JUnit Test Compilation",
       "command" : "javac -cp submitty_junit.jar:. FactorialTest.java",
-      "executable_name" : "FactorialTest.class",
+      "executable_name" : [ "Factorial.class", "FactorialTest.class" ],
       "points" : 2
     },
     {

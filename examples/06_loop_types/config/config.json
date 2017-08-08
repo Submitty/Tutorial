@@ -2,14 +2,15 @@
   "resource_limits" : {
     "RLIMIT_CPU" : 60,
     "RLIMIT_NPROC" : 100,
-    "RLIMIT_AS" : "RLIM_INFINITY"
+    "RLIMIT_AS" : "RLIM_INFINITY",
+    "RLIMIT_SIGPENDING" : 100
   },
 
   "testcases" : [
     {
       "title" : "Python - Distinguish for and while Loops",
-      "command" : [ "submitty_count node for *.py",
-                    "submitty_count token while *.py" ],
+      "command" : [ "submitty_count -l python node for *.py",
+                    "submitty_count -l python token While *.py" ],
       "points" : 2,
       "validation" : [
         {
