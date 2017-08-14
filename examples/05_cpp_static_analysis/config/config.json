@@ -1,7 +1,7 @@
 {
-    // explicitly grab the necessary submitted files for validation
+    // explicitly grab the necessary submitted files for static analysis
     "autograding" : {
-        "submission_to_validation" : [ "*.cpp", "*.c", "*.hpp", "*.h", "*.c", "*.hpp" ]
+        "submission_to_runner" : [ "*.cpp", "*.c", "*.hpp", "*.h", "*.c", "*.hpp" ]
     },
 
     // Static analysis can also be performed upon C++ code.
