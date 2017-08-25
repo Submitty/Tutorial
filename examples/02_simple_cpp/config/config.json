@@ -19,7 +19,7 @@
       "points" : 15, 
       "validation" : [
         {
-          "method" : "myersDiffbyLinebyChar",
+          "method" : "diff",
           "actual_file" : "STDOUT.txt",
           "description" : "Program Output",
           "expected_file" : "test1_output.txt"
