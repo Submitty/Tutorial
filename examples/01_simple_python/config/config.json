@@ -16,7 +16,7 @@
           {
               // Grade by "diffing" the student output with an
               // instructor-provided file.
-              "method" : "myersDiffbyLinebyChar",
+              "method" : "diff",
               // The student's output. Corresponds to the position
               // of a command in the "command" list above: since
               // "python *.py" is the first command, it's output

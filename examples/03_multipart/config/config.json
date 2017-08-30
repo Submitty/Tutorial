@@ -13,7 +13,7 @@
             "points" : 3,
             "validation" : [
                 { 
-                    "method" : "myersDiffbyLinebyChar",
+                    "method" : "diff",
                     "actual_file" : "STDOUT.txt",
                     "description" : "Program Output",
                     "expected_file" : "part1_sol.txt"
@@ -26,7 +26,7 @@
             "points" : 4,
             "validation" : [
                 { 
-                    "method" : "myersDiffbyLinebyChar",
+                    "method" : "diff",
                     "actual_file" : "STDOUT.txt",
                     "description" : "Program Output",
                     "expected_file" : "part2_sol.txt"
@@ -39,7 +39,7 @@
             "points" : 3,
             "validation" : [
                 { 
-                    "method" : "myersDiffbyLinebyChar",
+                    "method" : "diff",
                     "actual_file" : "STDOUT.txt",
                     "description" : "Program Output",
                     "expected_file" : "part3_sol.txt"

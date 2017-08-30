@@ -1,11 +1,4 @@
 {
-  "resource_limits" : {
-    "RLIMIT_CPU" : 60,
-    "RLIMIT_NPROC" : 100,
-    "RLIMIT_AS" : "RLIM_INFINITY",
-    "RLIMIT_SIGPENDING" : 100
-  },
-
   "testcases" : [
     {
       "title" : "Python - Static Analysis",
@@ -21,7 +14,7 @@
       "validation" : [
         // First, ensure that the student received the correct answer.
         {
-          "method" : "myersDiffbyLinebyChar",
+          "method" : "diff",
 	  "actual_file" : "STDOUT_0.txt",
 	  "description" : "Program Output",
 	  "expected_file" : "output.txt"
