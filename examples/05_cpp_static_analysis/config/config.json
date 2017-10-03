@@ -1,4 +1,9 @@
 {
+    // explicitly grab the necessary submitted files for static analysis
+    "autograding" : {
+        "submission_to_runner" : [ "*.cpp", "*.c", "*.hpp", "*.h", "*.c", "*.hpp" ]
+    },
+
     // Static analysis can also be performed upon C++ code.
     // Here, no compilation is performed at all; instead, student code is examined to
     // ensure that it does not use either the "goto" or "auto" keywords.
