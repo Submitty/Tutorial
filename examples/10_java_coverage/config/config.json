@@ -27,7 +27,7 @@
 
     {
       "title" : "Java - Instrumentation of Student Code",
-      "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
+      "command" : "java -jar submitty_jacoco.jar instrument hw0 --dest .",
       "points" : 0,
       "validation" : [ 
           { 
