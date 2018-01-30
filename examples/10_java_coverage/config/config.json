@@ -27,7 +27,7 @@
 
     {
       "title" : "Java - Instrumentation of Student Code",
-      "command" : "java -jar submitty_jacoco.jar instrument hw0 --dest .",
+      "command" : "java -jar submitty_jacoco.jar instrument hw0 --dest hw0",
       "points" : 0,
       "validation" : [ 
           { 
@@ -51,7 +51,7 @@
 
     {
       "title" : "Java - Generating Coverage Report for Student Tests",
-      "command" : "java -cp submitty_emma.jar emma report -r txt -in coverage.em,coverage.ec -Dreport.txt.out.file=emma_report.txt",
+      "command" : "java -jar jacococli.jar report --classfiles hw0 --csv emma_report.txt",
       "points" : 6,
       "validation" : [
         {
@@ -71,7 +71,7 @@
 
     {
       "title" : "Java - Instructor JUnit Tests",
-      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
+      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
       "points" : 6,
       "validation" : [
         {
