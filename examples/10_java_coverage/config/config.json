@@ -39,7 +39,7 @@
 
     {
       "title" : "Java - JaCoCo - Instrumentation of Student Code",
-      "command" : "java -jar submitty_jacoco.jar instrument --dest hw0 hw0",
+      "command" : "java -jar submitty_jacoco.jar instrument hw0/ --dest hw0",
       "points" : 0,
       "validation" : [ 
           { 
