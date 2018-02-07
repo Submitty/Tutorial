@@ -26,7 +26,19 @@
     },
 
     {
-      "title" : "Java - Instrumentation of Student Code",
+      "title" : "Java - EMMA - Instrumentation of Student Code",
+      "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
+      "points" : 0,
+      "validation" : [ 
+          { 
+              "method" : "EmmaInstrumentationGrader",
+              "actual_file" : "STDOUT.txt"
+          }
+      ]
+    },
+
+    {
+      "title" : "Java - JaCoCo - Instrumentation of Student Code",
       "command" : "java -jar submitty_jacoco.jar instrument --dest hw0 hw0",
       "points" : 0,
       "validation" : [ 
