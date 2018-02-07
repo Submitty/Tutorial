@@ -27,7 +27,7 @@
 
     {
       "title" : "Java - Instrumentation of Student Code",
-      "command" : "java -jar submitty_jacoco.jar instrument hw0 --dest hw0",
+      "command" : "java -jar submitty_jacoco.jar instrument --dest hw0 hw0",
       "points" : 0,
       "validation" : [ 
           { 
@@ -39,7 +39,7 @@
 
     {
       "title" : "Java - Running Student JUnit Tests in hw0/tests/",
-      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_jacoco.jar:submitty_junit/:. TestRunner hw0",
+      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:submitty_junit/:. TestRunner hw0",
       "points" : 4,
       "validation" : [
           { 
@@ -71,7 +71,7 @@
 
     {
       "title" : "Java - Instructor JUnit Tests",
-      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_jacoco.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
+      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
       "points" : 6,
       "validation" : [
         {
