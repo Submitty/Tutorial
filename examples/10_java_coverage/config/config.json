@@ -62,7 +62,28 @@
     },
 
     {
-      "title" : "Java - Generating Coverage Report for Student Tests",
+      "title" : "Java - EMMA - Generating Coverage Report for Student Tests",
+      "command" : "java -cp submitty_emma.jar emma report -r txt -in coverage.em,coverage.ec -Dreport.txt.out.file=emma_report.txt",
+      "points" : 0,
+      "validation" : [
+        {
+          "method" : "errorIfEmpty",
+          "actual_file" : "STDOUT.txt",
+          "description" : "EclEmma report generation output",
+          "deduction" : 0.0
+        },
+        {
+          "method" : "EmmaCoverageReportGrader",
+          "actual_file" : "emma_report.txt",
+          "coverage_threshold" : 90,
+          "deduction" : 0.0
+        }
+      ]
+    },
+
+
+    {
+      "title" : "Java - JaCoCo - Generating Coverage Report for Student Tests",
       "command" : "java -jar submitty_jacoco.jar report --classfiles hw0 --csv emma_report.txt",
       "points" : 6,
       "validation" : [
