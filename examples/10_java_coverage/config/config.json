@@ -25,6 +25,7 @@
       "points" : 2
     },
 
+    /*
     {
       "title" : "Java - EMMA - Instrumentation of Student Code",
       "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
@@ -36,22 +37,14 @@
           }
       ]
     },
-
-    {
-      "title" : "Java - JaCoCo - Instrumentation of Student Code",
-      "command" : "java -jar submitty_jacoco.jar instrument hw0/ --dest hw0",
-      "points" : 0,
-      "validation" : [ 
-          { 
-              "method" : "EmmaInstrumentationGrader",
-              "actual_file" : "STDOUT.txt"
-          }
-      ]
-    },
+    */
+    
+    // JaCoCo can do on-demand instrumentation
+    // I have found this easier to use
 
     {
       "title" : "Java - Running Student JUnit Tests in hw0/tests/",
-      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:submitty_junit/:. TestRunner hw0",
+      "command" : "java -noverify -javaagent:submitty_jacocoagent.jar=destfile=coverage.exec -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_junit/:. TestRunner hw0",
       "points" : 4,
       "validation" : [
           { 
@@ -61,6 +54,7 @@
       ]
     },
 
+    /*
     {
       "title" : "Java - EMMA - Generating Coverage Report for Student Tests",
       "command" : "java -cp submitty_emma.jar emma report -r txt -in coverage.em,coverage.ec -Dreport.txt.out.file=emma_report.txt",
@@ -80,11 +74,12 @@
         }
       ]
     },
+    */
 
 
     {
       "title" : "Java - JaCoCo - Generating Coverage Report for Student Tests",
-      "command" : "java -jar submitty_jacoco.jar report --classfiles hw0 --csv emma_report.txt",
+      "command" : "java -jar submitty_jacococli.jar report coverage.exec --classfiles hw0 --csv jacoco_report.csv",
       "points" : 6,
       "validation" : [
         {
@@ -95,7 +90,7 @@
         },
         {
           "method" : "EmmaCoverageReportGrader",
-          "actual_file" : "emma_report.txt",
+          "actual_file" : "jacoco_report.csv",
           "coverage_threshold" : 90,
           "deduction" : 1.0
         }
@@ -104,7 +99,7 @@
 
     {
       "title" : "Java - Instructor JUnit Tests",
-      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
+      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
       "points" : 6,
       "validation" : [
         {
