@@ -85,13 +85,14 @@
         {
           "method" : "errorIfEmpty",
           "actual_file" : "STDOUT.txt",
-          "description" : "EclEmma report generation output",
+          "description" : "JaCoCo report generation output",
           "deduction" : 0.0
         },
         {
-          "method" : "EmmaCoverageReportGrader",
+          "method" : "errorIfEmpty",
           "actual_file" : "jacoco_report.csv",
-          "coverage_threshold" : 90,
+          //"coverage_threshold" : 90,
+          "description" : "JUnit JaCoCo coverage report",
           "deduction" : 1.0
         }
       ]
