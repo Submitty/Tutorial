@@ -1,4 +1,7 @@
 {
+  "autograding" : {
+    "work_to_details": [ "*.csv" ]
+  },
   "resource_limits" : {
     "RLIMIT_CPU" : 60,
     "RLIMIT_NPROC" : 100,
@@ -12,21 +15,80 @@
     // instructor-provided JUnit test-based grading.
     {
       "type" : "Compilation",
-      "title" : "Java - Compilation",
+      "title" : "Class Compilation",
       "command" : "javac -cp submitty_junit.jar hw0/Factorial.java",
       "executable_name" : "hw0/Factorial.class",
       "points" : 2
     },
     {
       "type" : "Compilation",
-      "title" : "Java - Student and Instructor JUnit Test Compilation",
+      "title" : "Student and Instructor JUnit Test Compilation",
       "command" : "javac -cp submitty_junit.jar:. hw0/test/*Test.java",
       "executable_name" : "hw0/test/FactorialTest.class",
       "points" : 2
     },
 
+
+    // -----------------------------------------------------------------------
+    // COVERAGE USING JACOCO
+    // JaCoCo can do on-demand instrumentation
     {
-      "title" : "Java - Instrumentation of Student Code",
+      "title" : "JaCoCo - Running Student JUnit Tests in hw0/tests/",
+      "command" : "java -noverify -javaagent:submitty_jacocoagent.jar=destfile=coverage.exec -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_junit/:. TestRunner hw0",
+      "points" : 4,
+      "validation" : [
+          { 
+              "method" : "MultipleJUnitTestGrader",
+              "actual_file" : "STDOUT.txt"
+          }
+      ]
+    },
+    {
+      "title" : "JaCoCo - Generating Coverage Report for Student Tests",
+      "command" : "java -jar submitty_jacococli.jar report coverage.exec --classfiles hw0 --csv jacoco_report.csv",
+      "points" : 6,
+      "validation" : [
+        {
+          "method" : "errorIfEmpty",
+          "actual_file" : "STDOUT.txt",
+          "description" : "JaCoCo report generation output",
+          "deduction" : 0.0
+        },
+        {
+          "method" : "JaCoCoCoverageReportGrader",
+          "actual_file" : "jacoco_report.csv",
+          "description" : "JaCoCo coverage report",
+          // specify the package & class to check (can omit to check all)
+         "package" : "hw0",
+          //"class" : "Factorial",
+          // which threshold(s) to apply
+          "instruction_coverage_threshold" : 90,
+          //"branch_coverage_threshold" : 90,
+          //"line_coverage_threshold" : 70,
+          //"complexity_coverage_threshold" : 80,
+          //"method_coverage_threshold" : 80,
+          "deduction" : 1.0
+        }
+      ]
+    },
+    {
+      "title" : "JaCoCo - Instructor JUnit Tests",
+      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
+      "points" : 6,
+      "validation" : [
+        {
+          "method" : "JUnitTestGrader",
+          "actual_file" : "STDOUT.txt",
+          "num_tests" : 4
+        }
+      ]
+    },
+
+
+    // ------------------------------------------------------------------------------
+    // COVERAGE USING EMMA
+    {
+      "title" : "EMMA - Instrumentation of Student Code",
       "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
       "points" : 0,
       "validation" : [ 
@@ -36,9 +98,8 @@
           }
       ]
     },
-
     {
-      "title" : "Java - Running Student JUnit Tests in hw0/tests/",
+      "title" : "EMMA - Running Student JUnit Tests in hw0/tests/",
       "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:submitty_junit/:. TestRunner hw0",
       "points" : 4,
       "validation" : [
@@ -48,9 +109,8 @@
           }
       ]
     },
-
     {
-      "title" : "Java - Generating Coverage Report for Student Tests",
+      "title" : "EMMA - Generating Coverage Report for Student Tests",
       "command" : "java -cp submitty_emma.jar emma report -r txt -in coverage.em,coverage.ec -Dreport.txt.out.file=emma_report.txt",
       "points" : 6,
       "validation" : [
@@ -63,15 +123,15 @@
         {
           "method" : "EmmaCoverageReportGrader",
           "actual_file" : "emma_report.txt",
+          "description" : "EclEmma coverage report",
           "coverage_threshold" : 90,
           "deduction" : 1.0
         }
       ]
     },
-
     {
-      "title" : "Java - Instructor JUnit Tests",
-      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
+      "title" : "EMMA - Instructor JUnit Tests",
+      "command" :  "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
       "points" : 6,
       "validation" : [
         {
@@ -81,5 +141,6 @@
         }
       ]
     }
+
   ]
 }
