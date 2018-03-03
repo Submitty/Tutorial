@@ -59,14 +59,14 @@
           "actual_file" : "jacoco_report.csv",
           "description" : "JaCoCo coverage report",
           // specify the package & class to check (can omit to check all)
-	  "package" : "hw0",
+         "package" : "hw0",
           //"class" : "Factorial",
           // which threshold(s) to apply
           "instruction_coverage_threshold" : 90,
-	  //"branch_coverage_threshold" : 90,
-	  //"line_coverage_threshold" : 70,
-	  //"complexity_coverage_threshold" : 80,
-	  //"method_coverage_threshold" : 80,
+          //"branch_coverage_threshold" : 90,
+          //"line_coverage_threshold" : 70,
+          //"complexity_coverage_threshold" : 80,
+          //"method_coverage_threshold" : 80,
           "deduction" : 1.0
         }
       ]
