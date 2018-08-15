@@ -1,5 +1,6 @@
 {
     "max_submission_size" : 1000000,
+    "required_capabilities" : "windowed",
     "testcases" : [
 
         // *************** COMPILATION *****************
@@ -11,84 +12,35 @@
             "executable_name" : "a.out",
             "points" : 1
         },
-        // *************** TEST CASES *****************
-        {
-            "title" : "Graphics program 1",
-            "command" : "./a.out -input sierpinski_triangle.txt -size 400 -iters 0 -cubes",
-            //*************** Actions *********************
-            //Actions allow you to interface GUI programs 
-            //via submitty. Note that in order to run such 
-            //applications, it is required that you have 
-            //set up a "Submitty with a screen;" a machine 
-            //running submitty with a monitor. This machine 
-            //must also run only one grading thread at a 
-            //time. For more information, please visit the
-            //submitty wiki. 
-            "actions" : [
-                       //It is recommended that the first action be a delay to allow student
-                       //programs additional time to initialize. Actions are taken beginning
-                       //at window load time. Note that all actions are padded with a .1 sec
-                       //delay.
-                       "delay 1", 
-                        //The click and drag delta command moves a specific distance from the
-                        //current mouse position. For additional information about actions 
-                        //and their syntax, please view the submitty wiki.
-                        "click and drag delta 100 0",
-                        //This program uses many unecessarily delays. Experiment by removing
-                        //them.
-                        "delay 1",
-                        "click and drag delta -100 0",
-                        "delay 1",
-                        "click and drag delta  0 100",
-                        "delay 1",
-                        "click and drag delta 0 -100",
-                        "delay 1",
-                        "click and drag delta 1000 0",
-                        "delay 1",
-                        "click and drag delta -1000 0",
-                        "delay 1",
-                        "click and drag delta 0 160",
-                        "delay 1",
-                        "click and drag delta 0 -160",
-                        "delay 1",
-                        "click and drag delta 300 300",
-                        "delay 1",
-                        //moves the mouse to 0,0 (upper left) on the window.
-                        "origin",
-                        "delay 1",
-                        //Centers the mouse on the screen
-                        "center",
-                        "delay 1",
-                        "mouse move 10 200",
-                        "delay 1",
-                        "click and drag 10 10 150 150",
-                        "delay 1",
-                        "click and drag 160 160",
-                        //takes a screenshot, labeled sequentially starting from 0.
-                        "screenshot",
-                        //In the provided application, q indicates a program quit.
-                        "type 'q'"],
-            "points" : 1,
-            "validation": [
-                {
-                    //In this validation example, we merely check that the screenshot
-                    //taken above exists.
-                    "actual_file": "0.png",
-                    "description": "screenshot a",
-                    "method": "fileExists",
-                    "show_actual": "always",
-                    "show_message": "always"
-                }
-            ]
-        },
         {
             "title" : "Graphics program 1",
             "command" : "./a.out -input sierpinski_triangle.txt -size 400 -iters 0 -cubes",
             "actions" : [
-                        "click and drag delta 50 -125",
-                        "delay 1",
-                        "screenshot",
-                        "type 'q'"
+                            {
+                                "action" : "click and drag delta",
+                                "x" : 50,
+                                "y" : -125
+                            },
+                            {
+                                "action"  : "delay",
+                                "seconds" : 1 
+                            },
+                            {
+                                "action" : "click and drag delta",
+                                "x" : 50,
+                                "y" : -125
+                            },
+                            {
+                                "action"  : "delay",
+                                "seconds" : 1
+                            },
+                            {
+                                "action" : "screenshot"
+                            },
+                            {
+                                "action" : "type",
+                                "string" : "q"
+                            }
                         ],
             "points" : 1,
             "validation": [
@@ -103,3 +55,76 @@
        }
     ]
 }
+
+
+
+ // *************** TEST CASES *****************
+        // {
+        //     "title" : "Graphics program 1",
+        //     "command" : "./a.out -input sierpinski_triangle.txt -size 400 -iters 0 -cubes",
+        //     //*************** Actions *********************
+        //     //Actions allow you to interface GUI programs 
+        //     //via submitty. Note that in order to run such 
+        //     //applications, it is required that you have 
+        //     //set up a "Submitty with a screen;" a machine 
+        //     //running submitty with a monitor. This machine 
+        //     //must also run only one grading thread at a 
+        //     //time. For more information, please visit the
+        //     //submitty wiki. 
+        //     "actions" : [
+        //                //It is recommended that the first action be a delay to allow student
+        //                //programs additional time to initialize. Actions are taken beginning
+        //                //at window load time. Note that all actions are padded with a .1 sec
+        //                //delay.
+        //                "delay 1", 
+        //                 //The click and drag delta command moves a specific distance from the
+        //                 //current mouse position. For additional information about actions 
+        //                 //and their syntax, please view the submitty wiki.
+        //                 "click and drag delta 100 0",
+        //                 //This program uses many unecessarily delays. Experiment by removing
+        //                 //them.
+        //                 "delay 1",
+        //                 "click and drag delta -100 0",
+        //                 "delay 1",
+        //                 "click and drag delta  0 100",
+        //                 "delay 1",
+        //                 "click and drag delta 0 -100",
+        //                 "delay 1",
+        //                 "click and drag delta 1000 0",
+        //                 "delay 1",
+        //                 "click and drag delta -1000 0",
+        //                 "delay 1",
+        //                 "click and drag delta 0 160",
+        //                 "delay 1",
+        //                 "click and drag delta 0 -160",
+        //                 "delay 1",
+        //                 "click and drag delta 300 300",
+        //                 "delay 1",
+        //                 //moves the mouse to 0,0 (upper left) on the window.
+        //                 "origin",
+        //                 "delay 1",
+        //                 //Centers the mouse on the screen
+        //                 "center",
+        //                 "delay 1",
+        //                 "mouse move 10 200",
+        //                 "delay 1",
+        //                 "click and drag 10 10 150 150",
+        //                 "delay 1",
+        //                 "click and drag 160 160",
+        //                 //takes a screenshot, labeled sequentially starting from 0.
+        //                 "screenshot",
+        //                 //In the provided application, q indicates a program quit.
+        //                 "type 'q'"],
+        //     "points" : 1,
+        //     "validation": [
+        //         {
+        //             //In this validation example, we merely check that the screenshot
+        //             //taken above exists.
+        //             "actual_file": "0.png",
+        //             "description": "screenshot a",
+        //             "method": "fileExists",
+        //             "show_actual": "always",
+        //             "show_message": "always"
+        //         }
+        //     ]
+        // },
