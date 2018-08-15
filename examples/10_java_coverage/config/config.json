@@ -41,30 +41,30 @@
       "validation" : [
         { 
             
-            "method" : "MultipleJUnitTestGrader",
-            "actual_file" : "STDOUT_0.txt",
-            "deduction" : 0.5
+          "method" : "MultipleJUnitTestGrader",
+          "actual_file" : "STDOUT_0.txt",
+          "deduction" : 0.5
         },
         {
-            "method" : "errorIfEmpty",
-            "actual_file" : "STDOUT_1.txt",
-            "description" : "JaCoCo report generation output",
-            "deduction" : 0.0
+          "method" : "errorIfEmpty",
+          "actual_file" : "STDOUT_1.txt",
+          "description" : "JaCoCo report generation output",
+          "deduction" : 0.0
         },
         {
-            "method" : "JaCoCoCoverageReportGrader",
-            "actual_file" : "jacoco_report.csv",
-            "description" : "JaCoCo coverage report",
-            // specify the package & class to check (can omit to check all)
-            "package" : "hw0",
-            //"class" : "Factorial",
-            // which threshold(s) to apply
-            "instruction_coverage_threshold" : 90,
-            //"branch_coverage_threshold" : 90,
-            //"line_coverage_threshold" : 70,
-            //"complexity_coverage_threshold" : 80,
-            //"method_coverage_threshold" : 80,
-            "deduction" : 0.5
+          "method" : "JaCoCoCoverageReportGrader",
+          "actual_file" : "jacoco_report.csv",
+          "description" : "JaCoCo coverage report",
+          // specify the package & class to check (can omit to check all)
+          "package" : "hw0",
+          //"class" : "Factorial",
+          // which threshold(s) to apply
+          "instruction_coverage_threshold" : 90,
+          //"branch_coverage_threshold" : 90,
+          //"line_coverage_threshold" : 70,
+          //"complexity_coverage_threshold" : 80,
+          //"method_coverage_threshold" : 80,
+          "deduction" : 0.5
         }
       ]
     },
@@ -80,50 +80,51 @@
         }
       ]
     }
-    // ,
-    // Sorry! Emma is no longer currently supported.
-    // // ------------------------------------------------------------------------------
-    // // COVERAGE USING EMMA
-    // {
-    //   "title" : "EMMA - Instrument of Student Code, Run JUnit Tests, and Generate Coverage Report",
-    //   "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
-    //   "points" : 10,
-    //   "validation" : [ 
-    //       { 
-    //           "method" : "EmmaInstrumentationGrader",
-    //           "actual_file" : "STDOUT.txt",
-    //           "deduction" : 0.0
-    //       },
-    //       { 
-    //           "method" : "MultipleJUnitTestGrader",
-    //           "actual_file" : "STDOUT_0.txt"
-    //       },
-    //       {
-    //         "method" : "errorIfEmpty",
-    //         "actual_file" : "STDOUT_1.txt",
-    //         "description" : "EclEmma report generation output",
-    //         "deduction" : 0.0
-    //       },
-    //       {
-    //         "method" : "EmmaCoverageReportGrader",
-    //         "actual_file" : "emma_report.txt",
-    //         "description" : "EclEmma coverage report",
-    //         "coverage_threshold" : 90
-    //       }
-    //   ]
-    // },
-    // {
-    //   "title" : "EMMA - Instructor JUnit Tests",
-    //   "command" :  "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
-    //   "points" : 6,
-    //   "validation" : [
-    //     {
-    //       "method" : "JUnitTestGrader",
-    //       "actual_file" : "STDOUT.txt",
-    //       "num_tests" : 4
-    //     }
-    //   ]
-    // }
+    /*,
+    Sorry! Emma is no longer currently supported.
+    // ------------------------------------------------------------------------------
+    // COVERAGE USING EMMA
+    {
+      "title" : "EMMA - Instrument of Student Code, Run JUnit Tests, and Generate Coverage Report",
+      "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
+      "points" : 10,
+      "validation" : [ 
+          { 
+              "method" : "EmmaInstrumentationGrader",
+              "actual_file" : "STDOUT.txt",
+              "deduction" : 0.0
+          },
+          { 
+              "method" : "MultipleJUnitTestGrader",
+              "actual_file" : "STDOUT_0.txt"
+          },
+          {
+            "method" : "errorIfEmpty",
+            "actual_file" : "STDOUT_1.txt",
+            "description" : "EclEmma report generation output",
+            "deduction" : 0.0
+          },
+          {
+            "method" : "EmmaCoverageReportGrader",
+            "actual_file" : "emma_report.txt",
+            "description" : "EclEmma coverage report",
+            "coverage_threshold" : 90
+          }
+      ]
+    },
+    {
+      "title" : "EMMA - Instructor JUnit Tests",
+      "command" :  "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
+      "points" : 6,
+      "validation" : [
+        {
+          "method" : "JUnitTestGrader",
+          "actual_file" : "STDOUT.txt",
+          "num_tests" : 4
+        }
+      ]
+    }
+    */
 
   ]
 }
