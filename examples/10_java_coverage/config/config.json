@@ -33,24 +33,21 @@
     // COVERAGE USING JACOCO
     // JaCoCo can do on-demand instrumentation
     {
-      "title" : "JaCoCo - Running Student JUnit Tests in hw0/tests/",
-      "command" : "java -noverify -javaagent:submitty_jacocoagent.jar=destfile=coverage.exec -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_junit/:. TestRunner hw0",
-      "points" : 4,
+      "title" : "JaCoCo - Running Student JUnit Tests in hw0/tests/ and Generating Coverage Report for Student Tests",
+      "command" : ["java -noverify -javaagent:submitty_jacocoagent.jar=destfile=coverage.exec -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_junit/:. TestRunner hw0",
+                   "java -jar submitty_jacococli.jar report coverage.exec --classfiles hw0 --csv jacoco_report.csv"
+      ],
+      "points" : 10,
       "validation" : [
-          { 
-              "method" : "MultipleJUnitTestGrader",
-              "actual_file" : "STDOUT.txt"
-          }
-      ]
-    },
-    {
-      "title" : "JaCoCo - Generating Coverage Report for Student Tests",
-      "command" : "java -jar submitty_jacococli.jar report coverage.exec --classfiles hw0 --csv jacoco_report.csv",
-      "points" : 6,
-      "validation" : [
+        { 
+            
+          "method" : "MultipleJUnitTestGrader",
+          "actual_file" : "STDOUT_0.txt",
+          "deduction" : 0.5
+        },
         {
           "method" : "errorIfEmpty",
-          "actual_file" : "STDOUT.txt",
+          "actual_file" : "STDOUT_1.txt",
           "description" : "JaCoCo report generation output",
           "deduction" : 0.0
         },
@@ -59,7 +56,7 @@
           "actual_file" : "jacoco_report.csv",
           "description" : "JaCoCo coverage report",
           // specify the package & class to check (can omit to check all)
-         "package" : "hw0",
+          "package" : "hw0",
           //"class" : "Factorial",
           // which threshold(s) to apply
           "instruction_coverage_threshold" : 90,
@@ -67,7 +64,7 @@
           //"line_coverage_threshold" : 70,
           //"complexity_coverage_threshold" : 80,
           //"method_coverage_threshold" : 80,
-          "deduction" : 1.0
+          "deduction" : 0.5
         }
       ]
     },
@@ -82,51 +79,37 @@
           "num_tests" : 4
         }
       ]
-    },
-
-
+    }
+    /*,
+    Sorry! Emma is no longer currently supported.
     // ------------------------------------------------------------------------------
     // COVERAGE USING EMMA
     {
-      "title" : "EMMA - Instrumentation of Student Code",
+      "title" : "EMMA - Instrument of Student Code, Run JUnit Tests, and Generate Coverage Report",
       "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
-      "points" : 0,
+      "points" : 10,
       "validation" : [ 
           { 
               "method" : "EmmaInstrumentationGrader",
-              "actual_file" : "STDOUT.txt"
-          }
-      ]
-    },
-    {
-      "title" : "EMMA - Running Student JUnit Tests in hw0/tests/",
-      "command" : "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:submitty_junit/:. TestRunner hw0",
-      "points" : 4,
-      "validation" : [
+              "actual_file" : "STDOUT.txt",
+              "deduction" : 0.0
+          },
           { 
               "method" : "MultipleJUnitTestGrader",
-              "actual_file" : "STDOUT.txt"
+              "actual_file" : "STDOUT_0.txt"
+          },
+          {
+            "method" : "errorIfEmpty",
+            "actual_file" : "STDOUT_1.txt",
+            "description" : "EclEmma report generation output",
+            "deduction" : 0.0
+          },
+          {
+            "method" : "EmmaCoverageReportGrader",
+            "actual_file" : "emma_report.txt",
+            "description" : "EclEmma coverage report",
+            "coverage_threshold" : 90
           }
-      ]
-    },
-    {
-      "title" : "EMMA - Generating Coverage Report for Student Tests",
-      "command" : "java -cp submitty_emma.jar emma report -r txt -in coverage.em,coverage.ec -Dreport.txt.out.file=emma_report.txt",
-      "points" : 6,
-      "validation" : [
-        {
-          "method" : "errorIfEmpty",
-          "actual_file" : "STDOUT.txt",
-          "description" : "EclEmma report generation output",
-          "deduction" : 0.0
-        },
-        {
-          "method" : "EmmaCoverageReportGrader",
-          "actual_file" : "emma_report.txt",
-          "description" : "EclEmma coverage report",
-          "coverage_threshold" : 90,
-          "deduction" : 1.0
-        }
       ]
     },
     {
@@ -141,6 +124,7 @@
         }
       ]
     }
+    */
 
   ]
 }

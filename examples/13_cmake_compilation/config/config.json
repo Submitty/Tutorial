@@ -1,4 +1,7 @@
 {
+    "autograding" : {
+        "submission_to_compilation" : ["CMakeLists.txt"]
+    },
     "max_submission_size" : 1000000,
     "testcases" : [
 
