@@ -130,6 +130,7 @@ def run():
       PORT_TO_INFO[port]['disconnected'] = True
       continue
     if name != None:
+      print("Recieved {0} from {1}".format(message, name))
       if message == "ping":
         sendPong(name)
       else:

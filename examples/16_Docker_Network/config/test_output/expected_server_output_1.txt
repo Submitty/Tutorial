@@ -1,0 +1,7 @@
+read known hosts
+Listening on port 9001 for incoming connections
+initialized connections
+Recieved ping from client
+responding with pong
+Recieved ping from client
+responding with pong

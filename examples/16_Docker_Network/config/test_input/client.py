@@ -81,11 +81,22 @@ def init_outgoing_connection(name):
 
 def send_out_message(name, msg):
   if not 'outgoing_socket' in NAME_TO_INFO[name]:
-    log("ERROR! Could not establish outgoing connection to {0}")
+    print("ERROR! Could not establish outgoing connection to {0}")
     sys.exit(1)
   sock = NAME_TO_INFO[name]['outgoing_socket']
+  print("sending {0} to {1}".format(msg, name))
   sock.sendall(msg.encode('utf-8'))
 
+def cleanup():
+  for port, info in PORT_TO_INFO.items(): 
+    if not 'incoming_connection' in info:
+      continue
+    name = info['incoming_connection']
+    sock = NAME_TO_INFO[name]['incoming_socket']
+
+    if 'connection' in NAME_TO_INFO[name]:
+      NAME_TO_INFO[name]['connection'].close()
+    sock.close()
 
 def check_for_request():
   for port, info in PORT_TO_INFO.items(): 
@@ -125,26 +136,28 @@ def send_message_and_wait_for_response(server_name, message):
   while response == None:
     response, return_name, return_port = check_for_request()
     time.sleep(.1)
-  print(response)
+  print('recieved {0} from {1}'.format(response, server_name))
 
-def auto_run_one():
+def auto_run_zero():
   delay_seconds(1)
   send_message_and_wait_for_response('server', 'ping')
   
-def auto_run_two():
+def auto_run_one():
   delay_seconds(1)
   send_message_and_wait_for_response('server','ping')
   send_message_and_wait_for_response('server','ping')
 
+def auto_run_two():
+  send_message_and_wait_for_response('server','not ping')
+
 def auto_run_three():
   send_message_and_wait_for_response('server','not ping')
-
-def auto_run_four():
-  send_message_and_wait_for_response('server','not ping')
   send_message_and_wait_for_response('server','ping')
   send_message_and_wait_for_response('server','ping')
 
 def auto_run_four():
+  while not init_outgoing_connection('server'):
+    pass
   while True:
     send_out_message('server','ping')
 
@@ -164,16 +177,19 @@ if __name__ == "__main__":
   RUN_NAME = sys.argv[2]
   init()
   if RUN_NAME == "0":
-    auto_run_one()
+    auto_run_zero()
   elif RUN_NAME == "1":
-    auto_run_two()
+    auto_run_one()
   elif RUN_NAME == "2":
-    auto_run_three()
+    auto_run_two()
   elif RUN_NAME == "3":
     auto_run_three()
   elif RUN_NAME == "4":
-    auto_run_three()
+    auto_run_four()
+  elif RUN_NAME == "5":
+    auto_run_five()
 
+  cleanup()
 
 
 
