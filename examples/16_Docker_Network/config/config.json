@@ -1,64 +1,24 @@
 {
+    "docker_enabled" : true,
     "autograding" : {
-        "work_to_details" : [ "**/*.csv", "**/*.txt", "**/*.py" ]
+        "work_to_details" : [ "**/*.csv", "**/*.txt" ]
     },
     "max_submission_size" : 1000000,
     "testcases" : [
 
         // *************** TEST CASES *****************
         {
-            "title" : "Distributed Testcase 1, Two Servers",
+            "title" : "Ping Pong",
             "containers" : [
                 {
-                    "container_name" : "docker_A",
-                    "commands" : ["python3 server.py docker_A two_servers.txt"], //string or array of strings.
-                    "outgoing_connections" : ["docker_B", "client"]
+                    "container_name" : "server",
+                    "commands" : ["python3 server.py server"], //string or array of strings.
+                    "outgoing_connections" : ["client"]
                 },
                 {
                     "container_name" : "docker_B",
-                    "commands" : ["python3 server.py docker_B two_servers.txt"],
-                    "outgoing_connections" : ["docker_A", "client"]
-                },
-                {
-                    "container_name" : "router",
-                    "commands" : ["python3 router.py"]
-                },
-                {
-                    "container_name" : "client",
-                    "commands" : ["python3 client.py client two_servers.txt 1"],
-                    "outgoing_connections" : ["docker_A", "docker_B"]
-                }
-            ],
-            "points" : 5,
-            "validation": [
-                {
-                    "method" : "diff",
-                    "actual_file" : "client/output.txt",
-                    "expected_file" : "expected_output_1.txt",
-                    "failure_message" : "ERROR: Your code did not match the expected output.",
-                    "show_message" : "on_failure",
-                    "deduction" : 1.0
-                }
-            ]
-        }
-        ,
-        {
-            "title" : "Distributed Testcase 2, Two Servers",
-            "containers" : [
-                {
-                    "container_name" : "docker_A",
-                    "commands" : ["python3 server.py docker_A two_servers.txt"], //string or array of strings.
-                    "outgoing_connections" : ["docker_B", "client"]
-                },
-                {
-                    "container_name" : "docker_B",
-                    "commands" : ["python3 server.py docker_B two_servers.txt"],
-                    "outgoing_connections" : ["docker_A", "client"]
-                },
-                {
-                    "container_name" : "client",
-                    "commands" : ["python3 client.py client two_servers.txt 2"],
-                    "outgoing_connections" : ["docker_A", "docker_B"]
+                    "commands" : ["python3 client.py client 0"],
+                    "outgoing_connections" : ["server"]
                 },
                 {
                     "container_name" : "router",
@@ -69,36 +29,34 @@
             "validation": [
                 {
                     "method" : "diff",
-                    "actual_file" : "client/output.txt",
-                    "expected_file" : "expected_output_2.txt",
+                    "actual_file" : "server/STDOUT.txt",
+                    "expected_file" : "expected_server_output_0.txt",
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
-                    "deduction" : 1.0
+                    "deduction" : 0.5
+                },
+                {
+                    "method" : "diff",
+                    "actual_file" : "client/STDOUT.txt",
+                    "expected_file" : "expected_client_output_0.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 0.5
                 }
             ]
         },
         {
-            "title" : "Distributed Testcase 3, Three Servers",
+            "title" : "Ping Pong, Ping Pong",
             "containers" : [
                 {
-                    "container_name" : "docker_A",
-                    "commands" : ["python3 server.py docker_A three_servers.txt"], //string or array of strings.
-                    "outgoing_connections" : ["docker_B", "docker_C", "client"]
+                    "container_name" : "server",
+                    "commands" : ["python3 server.py server"], //string or array of strings.
+                    "outgoing_connections" : ["client"]
                 },
                 {
                     "container_name" : "docker_B",
-                    "commands" : ["python3 server.py docker_B three_servers.txt"],
-                    "outgoing_connections" : ["docker_A", "docker_C", "client"]
-                },
-                {
-                    "container_name" : "docker_C",
-                    "commands" : ["python3 server.py docker_C three_servers.txt"],
-                    "outgoing_connections" : ["docker_A", "docker_B", "client"]
-                },
-                {
-                    "container_name" : "client",
-                    "commands" : ["python3 client.py client three_servers.txt 3"],
-                    "outgoing_connections" : ["docker_A", "docker_B", "docker_C"]
+                    "commands" : ["python3 client.py client 1"],
+                    "outgoing_connections" : ["server"]
                 },
                 {
                     "container_name" : "router",
@@ -109,11 +67,95 @@
             "validation": [
                 {
                     "method" : "diff",
-                    "actual_file" : "client/output.txt",
-                    "expected_file" : "expected_output_3.txt",
+                    "actual_file" : "server/STDOUT.txt",
+                    "expected_file" : "expected_server_output_1.txt",
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
-                    "deduction" : 1.0
+                    "deduction" : 0.5
+                },
+                {
+                    "method" : "diff",
+                    "actual_file" : "client/STDOUT.txt",
+                    "expected_file" : "expected_client_output_1.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 0.5
+                }
+            ]
+        },
+        {
+            "title" : "Not Ping",
+            "containers" : [
+                {
+                    "container_name" : "server",
+                    "commands" : ["python3 server.py server"], //string or array of strings.
+                    "outgoing_connections" : ["client"]
+                },
+                {
+                    "container_name" : "docker_B",
+                    "commands" : ["python3 client.py client 2"],
+                    "outgoing_connections" : ["server"]
+                },
+                {
+                    "container_name" : "router",
+                    "commands" : ["python3 router.py"]
+                }
+            ],
+            "points" : 5,
+            "validation": [
+                {
+                    "method" : "diff",
+                    "actual_file" : "server/STDOUT.txt",
+                    "expected_file" : "expected_server_output_2.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 0.5
+                },
+                {
+                    "method" : "diff",
+                    "actual_file" : "client/STDOUT.txt",
+                    "expected_file" : "expected_client_output_2.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 0.5
+                }
+            ]
+        },
+        {
+            "title" : "Not Ping, Ping, Ping",
+            "containers" : [
+                {
+                    "container_name" : "server",
+                    "commands" : ["python3 server.py server"], //string or array of strings.
+                    "outgoing_connections" : ["client"]
+                },
+                {
+                    "container_name" : "docker_B",
+                    "commands" : ["python3 client.py client 3"],
+                    "outgoing_connections" : ["server"]
+                },
+                {
+                    "container_name" : "router",
+                    "commands" : ["python3 router.py"]
+                }
+            ],
+            "points" : 5,
+            "validation": [
+                {
+                    "method" : "diff",
+                    "actual_file" : "server/STDOUT.txt",
+                    "expected_file" : "expected_server_output_3.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 0.5
+                },
+                {
+                    "method" : "diff",
+                    "actual_file" : "client/STDOUT.txt",
+                    "expected_file" : "expected_client_output_3.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 0.5
                 }
             ]
         }
