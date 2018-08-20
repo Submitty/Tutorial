@@ -92,10 +92,6 @@ def build_switchboard():
 # OUTGOING CONNECTION/QUEUE FUNCTIONS
 ##################################################################################################################
 
-# def connect_outgoing_sockets():
-#   for port in PORTS:
-#     connect_outgoing_tcp_socket(port)
-
 
 def connect_outgoing_tcp_socket(port):
   if SWITCHBOARD[port]['connected']:
@@ -169,7 +165,6 @@ def open_incoming_tcp_socket(port):
   sock.setblocking(False)
 
   SWITCHBOARD[port]['incoming_socket'] = sock
-  # sock.getsockname()[1] returns the port number.
 
 def listen_to_sockets():
   for port in PORTS:
@@ -227,7 +222,6 @@ def listen_to_sockets():
       pass
     except ConnectionRefusedError as e:
       #this means that connect_outgoing_tcp didn't work.
-      # SWITCHBOARD[port]['incoming_socket'].close()
       log('Connection on outgoing channel not established. Message dropped.')
       log(traceback.format_exc())
       SWITCHBOARD[port]['connected'] = False
@@ -264,9 +258,4 @@ def run():
 if __name__ == '__main__':
   init()
   run()
-
-#First thing tomorrow:
-#1) Connect up a brand new docker network of networks.
-#2) Test until router is good.
-#3) If possible, start work on getting things to run on submitty.
 
