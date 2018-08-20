@@ -52,6 +52,8 @@ def log(line):
   with open(LOG_FILE, mode=append_write) as out_file:
     out_file.write(line + '\n')
     out_file.flush()
+  print(line)
+  sys.stdout.flush()
 
 def build_switchboard():
   try:
@@ -73,6 +75,7 @@ def build_switchboard():
         SWITCHBOARD[port]['sender'] = sender
         SWITCHBOARD[port]['recipient'] = recipient
         SWITCHBOARD[port]['connected'] = False
+        SWITCHBOARD[port]['connection'] = None
 
 
   except IOError as e:
@@ -80,7 +83,6 @@ def build_switchboard():
     log(traceback.format_exc())
   except ValueError as e:
     log("ERROR: {0} was improperly formatted. Please include lines of the form (SENDER, RECIPIENT, PORT)".format(KNOWN_HOSTS_CSV))
-    log(traceback.format_exc())
   except Exception as e:
     log('Encountered an error while reading and parsing {0}'.format(KNOWN_HOSTS_CSV))
     log(traceback.format_exc())
@@ -104,9 +106,9 @@ def connect_outgoing_tcp_socket(port):
   sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
   #We catch errors one level up.
-  log('Connecting to {0}'.format(server_address))
   sock.connect(server_address)
-  log("Connected to {0}".format(server_address))
+  name = recipient.replace('_Actual', '')
+  log("Established outgoing connection to {0} on port {1}".format(name, port))
   SWITCHBOARD[port]['connected'] = True
   SWITCHBOARD[port]['outgoing_socket'] = sock
 
@@ -115,16 +117,18 @@ def send_outgoing_message(data):
     port = data['port']
     message = data['message']
     sock = SWITCHBOARD[port]['outgoing_socket']
+    recipient = data['recipient'].replace('_Actual', '')
   except:
+    log("An error occurred internal to the router. Please report the following error to a Submitty Administrator")
     log(traceback.format_exc())
   try:
-    log('Attempting to send the message...')
     sock.sendall(message)
-    log('Message sent.')
+    log('Sent message {!r} to {}'.format(message,recipient))
   except:
-    log(traceback.format_exc())
+    log('Could not deliver message {!r} to {}'.format(message,recipient))
     SWITCHBOARD[port]['connected'] = False
-    SWITCHBOARD[port]['outgoing_socket'].close()
+    SWITCHBOARD[port]['connection'].close()
+    SWITCHBOARD[port]['connection'] = None
 
 def process_queue():
   still_going = True
@@ -135,7 +139,6 @@ def process_queue():
       #  as a result, pull it off, check it, then put it back on.
       value = QUEUE.get_nowait()
       if value[0] <= now:
-        log("It is time to process the message {0}".format(value[1]))
         send_outgoing_message(value[1])
       else:
         QUEUE.put(value)
@@ -159,7 +162,7 @@ def open_incoming_tcp_socket(port):
   #Bind the socket to the port
   server_address = ('', int(port))
   sock.bind(server_address)
-  log('bound socket to {} port {}'.format(*server_address))
+  log('Bound socket port {0}'.format(port))
   #listen for at most 1 incoming connections at a time.
   sock.listen(1)
   #There is another way to accomplish this using select, but I think it is tcp exclusive.
@@ -172,20 +175,31 @@ def listen_to_sockets():
   for port in PORTS:
 
     try:
-      if not 'connection' in SWITCHBOARD[port]:
+      if SWITCHBOARD[port]["connection"] == None:
         sock = SWITCHBOARD[port]['incoming_socket']
         connection, client_address = sock.accept()
         connection.setblocking(False)
         SWITCHBOARD[port]['connection'] = connection
-        log('established connection with {0}'.format(port))
+        name = SWITCHBOARD[port]['sender'].replace('_Actual', '')
+        log('established connection with {0} on port {1}'.format(name, port))
       else:
         connection = SWITCHBOARD[port]['connection']
 
 
       #TODO: May have to the max recvfrom size.
       #The recvfrom call will raise a OSError if there is nothing to recieve. 
-      message, sender = connection.recvfrom(4096)
-      log('recieved message {!r} on port {}'.format(message,port))
+      message, snd = connection.recvfrom(4096)
+      sender = SWITCHBOARD[port]['sender'].replace("_Actual", "")
+
+      if message.decode('utf-8') == '':
+        log('Host {0} disconnected on port {1}.'.format(sender,port))
+        SWITCHBOARD[port]['connected'] = False
+        SWITCHBOARD[port]['connection'].close()
+        SWITCHBOARD[port]['connection'] = None
+        continue
+
+      log('Recieved message {!r} from {} on port {}'.format(message,sender,port))
+
       #if we did not error:
       connect_outgoing_tcp_socket(port)
       recipient = SWITCHBOARD[port]['recipient']
@@ -196,7 +210,6 @@ def listen_to_sockets():
         'port' : port,
         'message' : message
       }
-      log('Recieved the following:\n{0}\n'.format(convert_queue_obj_to_string(data)))
 
       #TODO allow rules to change what time is used for the priority queue.
       currentTime = datetime.datetime.now()
@@ -211,8 +224,6 @@ def listen_to_sockets():
         log('real error!')
         log(traceback.format_exc())
     except BlockingIOError as e:
-      #print("Exception encountered. Shouldn't be a big deal.")
-      #traceback.print_exc()
       pass
     except ConnectionRefusedError as e:
       #this means that connect_outgoing_tcp didn't work.
@@ -221,7 +232,7 @@ def listen_to_sockets():
       log(traceback.format_exc())
       SWITCHBOARD[port]['connected'] = False
     except socket.gaierror as e:
-      log("unable to connect to unknown/not set up entity.")
+      log("Unable to connect to unknown/not set up entity.")
       log(traceback.format_exc())
     except Exception as e:
       log("ERROR: error listening to socket {0}".format(port))

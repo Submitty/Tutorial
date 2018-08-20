@@ -12,12 +12,12 @@
             "containers" : [
                 {
                     "container_name" : "server",
-                    "commands" : ["python3 server.py server"], //string or array of strings.
+                    "commands" : ["python3 server.py server"],
                     "outgoing_connections" : ["client"]
                 },
                 {
-                    "container_name" : "docker_B",
-                    "commands" : ["python3 client.py client 0"],
+                    "container_name" : "client",
+                    "commands" : ["sleep 1", "python3 client.py client 0"],
                     "outgoing_connections" : ["server"]
                 },
                 {
@@ -37,7 +37,7 @@
                 },
                 {
                     "method" : "diff",
-                    "actual_file" : "client/STDOUT.txt",
+                    "actual_file" : "client/STDOUT_1.txt",
                     "expected_file" : "expected_client_output_0.txt",
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
@@ -54,8 +54,8 @@
                     "outgoing_connections" : ["client"]
                 },
                 {
-                    "container_name" : "docker_B",
-                    "commands" : ["python3 client.py client 1"],
+                    "container_name" : "client",
+                    "commands" : ["sleep 1", "python3 client.py client 1"],
                     "outgoing_connections" : ["server"]
                 },
                 {
@@ -75,7 +75,7 @@
                 },
                 {
                     "method" : "diff",
-                    "actual_file" : "client/STDOUT.txt",
+                    "actual_file" : "client/STDOUT_1.txt",
                     "expected_file" : "expected_client_output_1.txt",
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
@@ -92,8 +92,8 @@
                     "outgoing_connections" : ["client"]
                 },
                 {
-                    "container_name" : "docker_B",
-                    "commands" : ["python3 client.py client 2"],
+                    "container_name" : "client",
+                    "commands" : ["sleep 1", "python3 client.py client 2"],
                     "outgoing_connections" : ["server"]
                 },
                 {
@@ -113,7 +113,7 @@
                 },
                 {
                     "method" : "diff",
-                    "actual_file" : "client/STDOUT.txt",
+                    "actual_file" : "client/STDOUT_1.txt",
                     "expected_file" : "expected_client_output_2.txt",
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
@@ -130,8 +130,8 @@
                     "outgoing_connections" : ["client"]
                 },
                 {
-                    "container_name" : "docker_B",
-                    "commands" : ["python3 client.py client 3"],
+                    "container_name" : "client",
+                    "commands" : ["sleep 1", "python3 client.py client 3"],
                     "outgoing_connections" : ["server"]
                 },
                 {
@@ -151,7 +151,7 @@
                 },
                 {
                     "method" : "diff",
-                    "actual_file" : "client/STDOUT.txt",
+                    "actual_file" : "client/STDOUT_1.txt",
                     "expected_file" : "expected_client_output_3.txt",
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",

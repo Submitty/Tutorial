@@ -1,9 +1,0 @@
-read known hosts
-Listening on port 9001 for incoming connections
-initialized connections
-Recieved not ping from client
-responding with I didn't understand the message not ping
-Recieved ping from client
-responding with pong
-Recieved ping from client
-responding with pong

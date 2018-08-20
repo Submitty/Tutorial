@@ -1,7 +1,0 @@
-read known hosts
-Listening on port 9000 for incoming connections
-initialized connections
-sending ping to server
-recieved pong from server
-sending ping to server
-recieved pong from server

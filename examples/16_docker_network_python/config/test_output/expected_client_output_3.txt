@@ -1,0 +1,9 @@
+Listening on port 9001 for incoming connections
+Sending 'not ping' to server
+Recieved 'Invalid Message 'not ping'' from server
+Sending 'ping' to server
+Recieved 'pong' from server
+Sending 'ping' to server
+Recieved 'pong' from server
+Cleaning up after myself.
+Shutting down.
