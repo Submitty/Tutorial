@@ -1,0 +1,121 @@
+{
+    "autograding" : {
+        "work_to_details" : [ "**/*.csv", "**/*.txt", "**/*.py" ]
+    },
+    "max_submission_size" : 1000000,
+    "testcases" : [
+
+        // *************** TEST CASES *****************
+        {
+            "title" : "Distributed Testcase 1, Two Servers",
+            "containers" : [
+                {
+                    "container_name" : "docker_A",
+                    "commands" : ["python3 server.py docker_A two_servers.txt"], //string or array of strings.
+                    "outgoing_connections" : ["docker_B", "client"]
+                },
+                {
+                    "container_name" : "docker_B",
+                    "commands" : ["python3 server.py docker_B two_servers.txt"],
+                    "outgoing_connections" : ["docker_A", "client"]
+                },
+                {
+                    "container_name" : "router",
+                    "commands" : ["python3 router.py"]
+                },
+                {
+                    "container_name" : "client",
+                    "commands" : ["python3 client.py client two_servers.txt 1"],
+                    "outgoing_connections" : ["docker_A", "docker_B"]
+                }
+            ],
+            "points" : 5,
+            "validation": [
+                {
+                    "method" : "diff",
+                    "actual_file" : "client/output.txt",
+                    "expected_file" : "expected_output_1.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 1.0
+                }
+            ]
+        }
+        ,
+        {
+            "title" : "Distributed Testcase 2, Two Servers",
+            "containers" : [
+                {
+                    "container_name" : "docker_A",
+                    "commands" : ["python3 server.py docker_A two_servers.txt"], //string or array of strings.
+                    "outgoing_connections" : ["docker_B", "client"]
+                },
+                {
+                    "container_name" : "docker_B",
+                    "commands" : ["python3 server.py docker_B two_servers.txt"],
+                    "outgoing_connections" : ["docker_A", "client"]
+                },
+                {
+                    "container_name" : "client",
+                    "commands" : ["python3 client.py client two_servers.txt 2"],
+                    "outgoing_connections" : ["docker_A", "docker_B"]
+                },
+                {
+                    "container_name" : "router",
+                    "commands" : ["python3 router.py"]
+                }
+            ],
+            "points" : 5,
+            "validation": [
+                {
+                    "method" : "diff",
+                    "actual_file" : "client/output.txt",
+                    "expected_file" : "expected_output_2.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 1.0
+                }
+            ]
+        },
+        {
+            "title" : "Distributed Testcase 3, Three Servers",
+            "containers" : [
+                {
+                    "container_name" : "docker_A",
+                    "commands" : ["python3 server.py docker_A three_servers.txt"], //string or array of strings.
+                    "outgoing_connections" : ["docker_B", "docker_C", "client"]
+                },
+                {
+                    "container_name" : "docker_B",
+                    "commands" : ["python3 server.py docker_B three_servers.txt"],
+                    "outgoing_connections" : ["docker_A", "docker_C", "client"]
+                },
+                {
+                    "container_name" : "docker_C",
+                    "commands" : ["python3 server.py docker_C three_servers.txt"],
+                    "outgoing_connections" : ["docker_A", "docker_B", "client"]
+                },
+                {
+                    "container_name" : "client",
+                    "commands" : ["python3 client.py client three_servers.txt 3"],
+                    "outgoing_connections" : ["docker_A", "docker_B", "docker_C"]
+                },
+                {
+                    "container_name" : "router",
+                    "commands" : ["python3 router.py"]
+                }
+            ],
+            "points" : 5,
+            "validation": [
+                {
+                    "method" : "diff",
+                    "actual_file" : "client/output.txt",
+                    "expected_file" : "expected_output_3.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 1.0
+                }
+            ]
+        }
+    ]
+}
