@@ -7,7 +7,7 @@ import time
 import traceback
 
 MY_NAME = ""
-KNOWN_HOSTS_CSV = 'knownhosts.csv'
+KNOWN_HOSTS_CSV = 'knownhosts_tcp.csv'
 
 #This tut
 client_name = ""
@@ -45,7 +45,7 @@ def initialize_incoming_connections():
     incoming_socket.bind(server_address)
     incoming_socket.listen(5)
     incoming_socket.setblocking(False)
-    print('Listening on port {0} for incoming connections'.format(incoming_port))
+    print('Listening on port {0} for incoming tcp connections'.format(incoming_port))
 
 def init_outgoing_connection():
   global outgoing_socket

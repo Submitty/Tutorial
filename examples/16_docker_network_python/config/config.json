@@ -173,6 +173,37 @@
                     "deduction" : 0.5
                 }
             ]
+        },
+        {
+            "title" : "UDP Test",
+            "extra_credit" : true,
+            "containers" : [
+                {
+                    "container_name" : "server",
+                    "commands" : ["python3 server.py server udp_enabled"], //string or array of strings.
+                    "outgoing_connections" : ["client"]
+                },
+                {
+                    "container_name" : "client",
+                    "commands" : ["sleep 1", "python3 client.py client 4 udp_enabled"],
+                    "outgoing_connections" : ["server"]
+                },
+                {
+                    "container_name" : "router",
+                    "commands" : ["python3 router.py"]
+                }
+            ],
+            "points" : 5,
+            "validation": [
+                {
+                    "method" : "diff",
+                    "actual_file" : "client/STDOUT_1.txt",
+                    "expected_file" : "expected_client_output_4.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 1.0
+                }
+            ]
         }
     ]
 }

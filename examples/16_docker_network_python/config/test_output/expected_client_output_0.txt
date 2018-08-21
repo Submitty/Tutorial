@@ -1,4 +1,4 @@
-Listening on port 9001 for incoming connections
+Listening on port 9001 for incoming tcp connections
 Sending 'ping' to server
 Recieved 'pong' from server
 Cleaning up after myself.

@@ -8,12 +8,6 @@ import errno
 from time import sleep
 import os
 
-'''
-knownhosts.csv is of the form
-Sender,Recipient,Port
-'''
-KNOWN_HOSTS_CSV = 'knownhosts.csv'
-
 LOG_FILE = 'router_log.txt'
 
 '''
@@ -58,33 +52,36 @@ def log(line):
 def build_switchboard():
   try:
     #Read the known_hosts.csv see the top of the file for the specification
-    with open(KNOWN_HOSTS_CSV, 'r') as infile:
-      reader = csv.reader(infile)
-      for sender, recipient, port in reader:
-        #Strip away trailing or leading whitespace
-        sender = '{0}_Actual'.format(sender.strip())
-        recipient = '{0}_Actual'.format(recipient.strip())
-        port = port.strip()
+    for connection_type in ["tcp", "udp"]:
+      filename = 'knownhosts_{0}.csv'.format(connection_type)
+      with open(filename, 'r') as infile:
+        reader = csv.reader(infile)
+        for sender, recipient, port in reader:
+          #Strip away trailing or leading whitespace
+          sender = '{0}_Actual'.format(sender.strip())
+          recipient = '{0}_Actual'.format(recipient.strip())
+          port = port.strip()
 
-        if not port in PORTS:
-          PORTS.append(port)
-        else:
-          raise SystemExit("ERROR: port {0} was encountered twice. Please keep all ports independant.".format(port))
+          if not port in PORTS:
+            PORTS.append(port)
+          else:
+            raise SystemExit("ERROR: port {0} was encountered twice. Please keep all ports independant.".format(port))
 
-        SWITCHBOARD[port] = {}
-        SWITCHBOARD[port]['sender'] = sender
-        SWITCHBOARD[port]['recipient'] = recipient
-        SWITCHBOARD[port]['connected'] = False
-        SWITCHBOARD[port]['connection'] = None
+          SWITCHBOARD[port] = {}
+          SWITCHBOARD[port]['connection_type'] = connection_type
+          SWITCHBOARD[port]['sender'] = sender
+          SWITCHBOARD[port]['recipient'] = recipient
+          SWITCHBOARD[port]['connected'] = False
+          SWITCHBOARD[port]['connection'] = None
 
 
   except IOError as e:
-    log("ERROR: Could not read {0}.".format(KNOWN_HOSTS_CSV))
+    log("ERROR: Could not read {0}.".format(filename))
     log(traceback.format_exc())
   except ValueError as e:
-    log("ERROR: {0} was improperly formatted. Please include lines of the form (SENDER, RECIPIENT, PORT)".format(KNOWN_HOSTS_CSV))
+    log("ERROR: {0} was improperly formatted. Please include lines of the form (SENDER, RECIPIENT, PORT)".format(filename))
   except Exception as e:
-    log('Encountered an error while reading and parsing {0}'.format(KNOWN_HOSTS_CSV))
+    log('Encountered an error while reading and parsing {0}'.format(filename))
     log(traceback.format_exc())
 
 
@@ -93,16 +90,22 @@ def build_switchboard():
 ##################################################################################################################
 
 
-def connect_outgoing_tcp_socket(port):
+def connect_outgoing_socket(port):
   if SWITCHBOARD[port]['connected']:
-    return 
+    return
+
+  connection_type = SWITCHBOARD[port]["connection_type"]
 
   recipient = SWITCHBOARD[port]['recipient']
   server_address = (recipient, int(port))
-  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+  if connection_type == 'tcp':
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(server_address)
+  else:
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
   #We catch errors one level up.
-  sock.connect(server_address)
   name = recipient.replace('_Actual', '')
   log("Established outgoing connection to {0} on port {1}".format(name, port))
   SWITCHBOARD[port]['connected'] = True
@@ -113,13 +116,17 @@ def send_outgoing_message(data):
     port = data['port']
     message = data['message']
     sock = SWITCHBOARD[port]['outgoing_socket']
-    recipient = data['recipient'].replace('_Actual', '')
+    recipient = data['recipient']
   except:
     log("An error occurred internal to the router. Please report the following error to a Submitty Administrator")
     log(traceback.format_exc())
   try:
-    sock.sendall(message)
-    log('Sent message {!r} to {}'.format(message,recipient))
+    if SWITCHBOARD[port]['connection_type'] == 'tcp':
+      sock.sendall(message)
+    else:
+      destination_address = (recipient, int(port))
+      sock.sendto(message,destination_address)
+    log('Sent message {!r} to {}'.format(message,recipient.replace('_Actual', '')))
   except:
     log('Could not deliver message {!r} to {}'.format(message,recipient))
     SWITCHBOARD[port]['connected'] = False
@@ -149,44 +156,65 @@ def process_queue():
 
 def connect_incoming_sockets():
   for port in PORTS:
-    open_incoming_tcp_socket(port)
+    open_incoming_socket(port)
 
-def open_incoming_tcp_socket(port):
+def open_incoming_socket(port):
   # Create a TCP/IP socket
-  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+  connection_type = SWITCHBOARD[port]['connection_type']
+  sender = SWITCHBOARD[port]['sender']
+
+  if connection_type == "tcp":
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  elif connection_type == "udp":
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  else:
+    log("ERROR: bad connection type {0}. Please contact an administrator".format(connection_type))
+    sys.exit(1)
 
   #Bind the socket to the port
   server_address = ('', int(port))
   sock.bind(server_address)
-  log('Bound socket port {0}'.format(port))
-  #listen for at most 1 incoming connections at a time.
-  sock.listen(1)
-  #There is another way to accomplish this using select, but I think it is tcp exclusive.
   sock.setblocking(False)
 
+  log('Bound socket port {0}'.format(port))
+
+  if connection_type == 'tcp':
+    #listen for at most 1 incoming connections at a time.
+    sock.listen(1)
+
   SWITCHBOARD[port]['incoming_socket'] = sock
+
+  if connection_type == 'udp':
+    SWITCHBOARD[port]['connection'] = sock
 
 def listen_to_sockets():
   for port in PORTS:
 
     try:
-      if SWITCHBOARD[port]["connection"] == None:
-        sock = SWITCHBOARD[port]['incoming_socket']
-        connection, client_address = sock.accept()
-        connection.setblocking(False)
-        SWITCHBOARD[port]['connection'] = connection
-        name = SWITCHBOARD[port]['sender'].replace('_Actual', '')
-        log('established connection with {0} on port {1}'.format(name, port))
+      connection_type = SWITCHBOARD[port]["connection_type"]
+      if connection_type == 'tcp':
+        if SWITCHBOARD[port]["connection"] == None:
+          sock = SWITCHBOARD[port]['incoming_socket']
+          connection, client_address = sock.accept()
+          connection.setblocking(False)
+          SWITCHBOARD[port]['connection'] = connection
+          name = SWITCHBOARD[port]['sender'].replace('_Actual', '')
+          log('established connection with {0} on port {1}'.format(name, port))
+        else:
+          connection = SWITCHBOARD[port]['connection']
+      elif connection_type == 'udp':
+          connection = SWITCHBOARD[port]["connection"]
       else:
-        connection = SWITCHBOARD[port]['connection']
-
+        log('Invalid connection type {0}. Please contact an administrator with this error.'.format(connection_type))
+        sys.exit(1)
 
       #TODO: May have to the max recvfrom size.
       #The recvfrom call will raise a OSError if there is nothing to recieve. 
       message, snd = connection.recvfrom(4096)
       sender = SWITCHBOARD[port]['sender'].replace("_Actual", "")
 
-      if message.decode('utf-8') == '':
+      if message.decode('utf-8') == '' and connection_type == 'tcp':
         log('Host {0} disconnected on port {1}.'.format(sender,port))
         SWITCHBOARD[port]['connected'] = False
         SWITCHBOARD[port]['connection'].close()
@@ -196,7 +224,7 @@ def listen_to_sockets():
       log('Recieved message {!r} from {} on port {}'.format(message,sender,port))
 
       #if we did not error:
-      connect_outgoing_tcp_socket(port)
+      connect_outgoing_socket(port)
       recipient = SWITCHBOARD[port]['recipient']
       
       data = {
