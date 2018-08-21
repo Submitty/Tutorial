@@ -1,9 +1,11 @@
 {
+    // docker_enabled must be true in order for networking to work. If you forget it,
+    // your assignment should fail to build.
     "docker_enabled" : true,
     "autograding" : {
         "work_to_details" : [ "**/*.csv", "**/*.txt" ]
     },
-    "max_submission_size" : 1000000,
+    // Each testcase creates a new, unique set of docker containers and networks.
     "testcases" : [
 
         // *************** TEST CASES *****************
@@ -11,16 +13,28 @@
             "title" : "Ping Pong",
             "containers" : [
                 {
+                    // Setting container_name allows you to later refer to the container by this handle
+                    // (e.g. when specifying outgoing connections). By default containers are named
+                    // container0, container1, container2, etc.
                     "container_name" : "server",
                     "commands" : ["python3 server.py server"],
+                    //outgoing_connections list the containers that this container is allowed to network to.
                     "outgoing_connections" : ["client"]
+                    // You can specify a docker image here, and if it is built on submitty, this container
+                    // will use it. At the moment, this field defaults to ubuntu:custom if unset -- the default
+                    // submitty image.
+                    //container_image : <image_name>
                 },
                 {
                     "container_name" : "client",
+                    // It can be important to ensure your container's start in the correct order.
+                    // In this example, we want the server to start before the client, so we add a sleep command.
                     "commands" : ["sleep 1", "python3 client.py client 0"],
                     "outgoing_connections" : ["server"]
                 },
                 {
+                    // At the moment, a router should always be specified, which relays student messages.
+                    // The router should have the unique name "router."
                     "container_name" : "router",
                     "commands" : ["python3 router.py"]
                 }
@@ -29,6 +43,7 @@
             "validation": [
                 {
                     "method" : "diff",
+                    //output files are stored in a directory that matches the container_name specified above.
                     "actual_file" : "server/STDOUT.txt",
                     "expected_file" : "expected_server_output_0.txt",
                     "failure_message" : "ERROR: Your code did not match the expected output.",
