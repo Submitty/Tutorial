@@ -9,7 +9,8 @@ import traceback
 MY_NAME = ""
 KNOWN_HOSTS_CSV = 'knownhosts_tcp.csv'
 
-#This tut
+# This tutorial is kept simple intentionally rather than using data structures or
+# dictionaries to store these values.
 client_name = ""
 incoming_port = 0
 outgoing_port = 1
@@ -21,6 +22,9 @@ def init():
   read_known_hosts_csv()
   initialize_incoming_connections()
 
+#knownhosts_tcp.csv and knownhosts_udp.csv are of the form
+#sender,recipient,port_number
+# such that sender sends all communications to recipient via port_number. 
 def read_known_hosts_csv():
   global client_name
   global incoming_port

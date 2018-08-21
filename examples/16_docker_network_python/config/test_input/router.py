@@ -49,6 +49,10 @@ def log(line):
   print(line)
   sys.stdout.flush()
 
+
+#knownhosts_tcp.csv and knownhosts_udp.csv are of the form
+#sender,recipient,port_number
+# such that sender sends all communications to recipient via port_number. 
 def build_switchboard():
   try:
     #Read the known_hosts.csv see the top of the file for the specification

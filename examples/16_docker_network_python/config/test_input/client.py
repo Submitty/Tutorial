@@ -34,6 +34,10 @@ def init():
   read_known_hosts_csv()
   initialize_incoming_connections()
 
+
+#knownhosts_tcp.csv and knownhosts_udp.csv are of the form
+#sender,recipient,port_number
+# such that sender sends all communications to recipient via port_number. 
 def read_known_hosts_csv():
   global server_name
   global incoming_tcp_port, outgoing_tcp_port
