@@ -1,0 +1,9 @@
+Listening on port 9001 for incoming tcp connections
+Listening on port 15001 for incoming udp connections
+We are sending messages to the server...
+We sent 4 pings to the server...
+We recieved some pongs! It looks like the student was using UDP!
+We sent 3 'not pings' to the server...
+We recieved some "not pongs!" It looks like the student was using UDP!
+Cleaning up after myself.
+Shutting down.

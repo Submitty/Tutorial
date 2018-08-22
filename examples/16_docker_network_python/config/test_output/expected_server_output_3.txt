@@ -1,0 +1,9 @@
+Listening on port 9000 for incoming tcp connections
+Recieved 'not ping' from client
+Sending 'Invalid Message not ping' to client
+Sending 'Invalid Message 'not ping'' to client
+Recieved 'ping' from client
+Sending 'pong' to client
+Recieved 'ping' from client
+Sending 'pong' to client
+client disconnected.
