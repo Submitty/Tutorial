@@ -1,6 +1,8 @@
 {
   "resource_limits" : {
-      // Allow the submission to run for 100 seconds.
+      // Allow the submission to run for 30 seconds.
+      // NOTE: there is an additional system buffer of 10
+      // seconds before the job is actually terminated.
       "RLIMIT_CPU" : 30
   },
 

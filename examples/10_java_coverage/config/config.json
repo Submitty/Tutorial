@@ -1,6 +1,6 @@
 {
   "autograding" : {
-    "work_to_details": [ "*.csv" ]
+    "work_to_details": [ "**/*.csv" ]
   },
   "resource_limits" : {
     "RLIMIT_CPU" : 60,
