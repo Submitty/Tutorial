@@ -6,8 +6,8 @@ import sys
 import time
 import traceback
 
-KNOWN_HOSTS_TCP = "knownhosts_tcp.txt"
-KNOWN_HOSTS_UDP = "knownhosts_udp.txt"
+KNOWN_HOSTS_TCP = "knownhosts_tcp.csv"
+KNOWN_HOSTS_UDP = "knownhosts_udp.csv"
 
 MY_NAME = ""
 USE_UDP = False
@@ -38,34 +38,29 @@ def read_known_hosts_csv():
   global client_name
   global incoming_tcp_port, outgoing_tcp_port
   global incoming_udp_port, outgoing_udp_port
-  with open(KNOWN_HOSTS_TCP) as infile:
-    content = infile.readlines()
-  
-  for line in content:
-    sender, recv, port = line.split()
-    if sender == MY_NAME:
-      outgoing_tcp_port =port
-      client_name = recv
-    elif recv == MY_NAME:
-      incoming_tcp_port = port
-      client_name = sender
-    else:
-      continue
-
-  if USE_UDP:
-    with open(KNOWN_HOSTS_UDP) as infile:
-      content = infile.readlines()
-    
-    for line in content:
-      sender, recv, port = line.split()
+  with open(KNOWN_HOSTS_TCP) as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    for sender, recv, port in csv_reader:
       if sender == MY_NAME:
-        outgoing_udp_port = port
+        outgoing_tcp_port =port
         client_name = recv
       elif recv == MY_NAME:
-        incoming_udp_port = port
+        incoming_tcp_port = port
         client_name = sender
       else:
         continue
+  if USE_UDP:
+    with open(KNOWN_HOSTS_UDP) as csv_file:
+      csv_reader = csv.reader(csv_file, delimiter=',')
+      for sender, recv, port in csv_reader:
+        if sender == MY_NAME:
+          outgoing_udp_port =port
+          client_name = recv
+        elif recv == MY_NAME:
+          incoming_udp_port = port
+          client_name = sender
+        else:
+          continue
 
 def initialize_incoming_connections():
   global incoming_tcp_socket, incoming_udp_socket
