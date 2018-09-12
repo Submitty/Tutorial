@@ -1,4 +1,6 @@
 {
+    //States that a given testcase uses a router by default. (Default value is true)
+    "use_router" : true,
     // docker_enabled must be true in order for networking to work. If you forget it,
     // your assignment should fail to build.
     "docker_enabled" : true,
@@ -10,6 +12,8 @@
 
         // *************** TEST CASES *****************
         {
+            //Despite the default being true, this testcase will not use a router.
+            "use_router" : false,
             "title" : "Ping Pong",
             "containers" : [
                 {
