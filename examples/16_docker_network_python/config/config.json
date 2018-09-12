@@ -33,7 +33,7 @@
                     "container_name" : "client",
                     // It can be important to ensure your container's start in the correct order.
                     // In this example, we want the server to start before the client, so we add a sleep command.
-                    "commands" : ["sleep 1", "python3 client.py client 0"],
+                    "commands" : ["sleep 2", "python3 client.py client 0"],
                     "outgoing_connections" : ["server"]
                 },
                 {
@@ -74,7 +74,7 @@
                 },
                 {
                     "container_name" : "client",
-                    "commands" : ["sleep 1", "python3 client.py client 1"],
+                    "commands" : ["sleep 2", "python3 client.py client 1"],
                     "outgoing_connections" : ["server"]
                 },
                 {
@@ -112,7 +112,7 @@
                 },
                 {
                     "container_name" : "client",
-                    "commands" : ["sleep 1", "python3 client.py client 2"],
+                    "commands" : ["sleep 2", "python3 client.py client 2"],
                     "outgoing_connections" : ["server"]
                 },
                 {
@@ -150,7 +150,7 @@
                 },
                 {
                     "container_name" : "client",
-                    "commands" : ["sleep 1", "python3 client.py client 3"],
+                    "commands" : ["sleep 2", "python3 client.py client 3"],
                     "outgoing_connections" : ["server"]
                 },
                 {
@@ -189,7 +189,7 @@
                 },
                 {
                     "container_name" : "client",
-                    "commands" : ["sleep 1", "python3 client.py client 4 udp_enabled"],
+                    "commands" : ["sleep 2", "python3 client.py client 4 udp_enabled"],
                     "outgoing_connections" : ["server"]
                 },
                 {

@@ -57,26 +57,28 @@ def build_switchboard():
   try:
     #Read the known_hosts.csv see the top of the file for the specification
     for connection_type in ["tcp", "udp"]:
-      filename = 'knownhosts_{0}.csv'.format(connection_type)
+      filename = 'knownhosts_{0}.txt'.format(connection_type)
       with open(filename, 'r') as infile:
-        reader = csv.reader(infile)
-        for sender, recipient, port in reader:
-          #Strip away trailing or leading whitespace
-          sender = '{0}_Actual'.format(sender.strip())
-          recipient = '{0}_Actual'.format(recipient.strip())
-          port = port.strip()
+        content = infile.readlines()    
+        
+      for line in content:
+        sender, recipient, port = line.split()
+        #Strip away trailing or leading whitespace
+        sender = '{0}_Actual'.format(sender.strip())
+        recipient = '{0}_Actual'.format(recipient.strip())
+        port = port.strip()
 
-          if not port in PORTS:
-            PORTS.append(port)
-          else:
-            raise SystemExit("ERROR: port {0} was encountered twice. Please keep all ports independant.".format(port))
+        if not port in PORTS:
+          PORTS.append(port)
+        else:
+          raise SystemExit("ERROR: port {0} was encountered twice. Please keep all ports independant.".format(port))
 
-          SWITCHBOARD[port] = {}
-          SWITCHBOARD[port]['connection_type'] = connection_type
-          SWITCHBOARD[port]['sender'] = sender
-          SWITCHBOARD[port]['recipient'] = recipient
-          SWITCHBOARD[port]['connected'] = False
-          SWITCHBOARD[port]['connection'] = None
+        SWITCHBOARD[port] = {}
+        SWITCHBOARD[port]['connection_type'] = connection_type
+        SWITCHBOARD[port]['sender'] = sender
+        SWITCHBOARD[port]['recipient'] = recipient
+        SWITCHBOARD[port]['connected'] = False
+        SWITCHBOARD[port]['connection'] = None
 
 
   except IOError as e:
