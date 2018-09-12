@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 import socket
 import os
-import csv
 import sys
 import time
 import traceback
 
 MY_NAME = ""
-KNOWN_HOSTS_CSV = 'knownhosts_tcp.csv'
+KNOWN_HOSTS_TCP = 'knownhosts_tcp.txt'
 
 # This tutorial is kept simple intentionally rather than using data structures or
 # dictionaries to store these values.
@@ -19,28 +18,30 @@ incoming_socket = None
 open_connection = None
 
 def init():
-  read_known_hosts_csv()
+  read_known_hosts_tcp()
   initialize_incoming_connections()
 
 
 #knownhosts_tcp.csv and knownhosts_udp.csv are of the form
 #sender,recipient,port_number
 # such that sender sends all communications to recipient via port_number. 
-def read_known_hosts_csv():
+def read_known_hosts_tcp():
   global client_name
   global incoming_port
   global outgoing_port
-  with open(KNOWN_HOSTS_CSV) as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    for sender, recv, port in csv_reader:
-      if sender == MY_NAME:
-        outgoing_port =port
-        client_name = recv
-      elif recv == MY_NAME:
-        incoming_port = port
-        client_name = sender
-      else:
-        continue
+  with open(KNOWN_HOSTS_TCP) as infile:
+    content = infile.readlines()
+  
+  for line in content:
+    sender, recv, port = line.split()
+    if sender == MY_NAME:
+      outgoing_port =port
+      client_name = recv
+    elif recv == MY_NAME:
+      incoming_port = port
+      client_name = sender
+    else:
+      continue
 
 def initialize_incoming_connections():
     global incoming_socket
