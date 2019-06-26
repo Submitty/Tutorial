@@ -3,17 +3,15 @@
     // your assignment should fail to build.
     "autograding_method" : "docker",
     "container_options" : {
-        //States that a given testcase uses a router by default. (Default value is true)
-        "use_router" : true
+      //States that a given testcase uses a router by default. (Default value is true)
+      "use_router" : true
     },
 
     "autograding" : {
-        "work_to_details" : [ "**/*.csv", "**/*.txt" ]
+        "work_to_details" : [ "**/*.txt" ]
     },
     // Each testcase creates a new, unique set of docker containers and networks.
     "testcases" : [
-
-        // *************** TEST CASES *****************
         {
             //Despite the default being true, this testcase will not use a router.
             "use_router" : false,
@@ -28,7 +26,7 @@
                     //outgoing_connections list the containers that this container is allowed to network to.
                     "outgoing_connections" : ["client"]
                     // You can specify a docker image here, and if it is built on submitty, this container
-                    // will use it. At the moment, this field defaults to ubuntu:custom if unset -- the default
+                    // will use it. If unset, this field defaults to ubuntu:custom  -- the default
                     // submitty image.
                     //container_image : <image_name>
                 },
@@ -38,19 +36,12 @@
                     // In this example, we want the server to start before the client, so we add a sleep command.
                     "commands" : ["sleep 2", "python3 client.py client 0"],
                     "outgoing_connections" : ["server"]
-                },
-                {
-                    // At the moment, a router should always be specified, which relays student messages.
-                    // The router should have the unique name "router."
-                    "container_name" : "router",
-                    "commands" : ["python3 router.py"]
                 }
             ],
             "points" : 5,
             "validation": [
                 {
                     "method" : "diff",
-                    //output files are stored in a directory that matches the container_name specified above.
                     "actual_file" : "server/STDOUT.txt",
                     "expected_file" : "expected_server_output_0.txt",
                     "failure_message" : "ERROR: Your code did not match the expected output.",
@@ -70,19 +61,16 @@
         {
             "title" : "Ping Pong, Ping Pong",
             "containers" : [
+                //This testcase is using a router, which will be injected into the network.
                 {
                     "container_name" : "server",
-                    "commands" : ["python3 server.py server"], //string or array of strings.
+                    "commands" : ["python3 server.py server"], 
                     "outgoing_connections" : ["client"]
                 },
                 {
                     "container_name" : "client",
                     "commands" : ["sleep 2", "python3 client.py client 1"],
                     "outgoing_connections" : ["server"]
-                },
-                {
-                    "container_name" : "router",
-                    "commands" : ["python3 router.py"]
                 }
             ],
             "points" : 5,
@@ -102,6 +90,15 @@
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
                     "deduction" : 0.5
+                },
+                //Adding this "sequence_diagram" filecheck will display a sequence diagram
+                // of messages passed to the student.
+                {
+                    "sequence_diagram" : true,
+                    "type" : "FileCheck",
+                    "title" : "Sequence Diagram Text File",
+                    "actual_file" : "router/sequence_diagram.txt",
+                    "points" : 0
                 }
             ]
         },
@@ -110,17 +107,13 @@
             "containers" : [
                 {
                     "container_name" : "server",
-                    "commands" : ["python3 server.py server"], //string or array of strings.
+                    "commands" : ["python3 server.py server"], 
                     "outgoing_connections" : ["client"]
                 },
                 {
                     "container_name" : "client",
                     "commands" : ["sleep 2", "python3 client.py client 2"],
                     "outgoing_connections" : ["server"]
-                },
-                {
-                    "container_name" : "router",
-                    "commands" : ["python3 router.py"]
                 }
             ],
             "points" : 5,
@@ -140,6 +133,15 @@
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
                     "deduction" : 0.5
+                },
+                //Adding this "sequence_diagram" filecheck will display a sequence diagram
+                // of messages passed to the student.
+                {
+                    "sequence_diagram" : true,
+                    "type" : "FileCheck",
+                    "title" : "Sequence Diagram Text File",
+                    "actual_file" : "router/sequence_diagram.txt",
+                    "points" : 0
                 }
             ]
         },
@@ -148,17 +150,13 @@
             "containers" : [
                 {
                     "container_name" : "server",
-                    "commands" : ["python3 server.py server"], //string or array of strings.
+                    "commands" : ["python3 server.py server"], 
                     "outgoing_connections" : ["client"]
                 },
                 {
                     "container_name" : "client",
                     "commands" : ["sleep 2", "python3 client.py client 3"],
                     "outgoing_connections" : ["server"]
-                },
-                {
-                    "container_name" : "router",
-                    "commands" : ["python3 router.py"]
                 }
             ],
             "points" : 5,
@@ -178,6 +176,15 @@
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
                     "deduction" : 0.5
+                },
+                //Adding this "sequence_diagram" filecheck will display a sequence diagram
+                // of messages passed to the student.
+                {
+                    "sequence_diagram" : true,
+                    "type" : "FileCheck",
+                    "title" : "Sequence Diagram Text File",
+                    "actual_file" : "router/sequence_diagram.txt",
+                    "points" : 0
                 }
             ]
         },
@@ -187,7 +194,7 @@
             "containers" : [
                 {
                     "container_name" : "server",
-                    "commands" : ["python3 server.py server udp_enabled"], //string or array of strings.
+                    "commands" : ["python3 server.py server udp_enabled"], 
                     "outgoing_connections" : ["client"]
                 },
                 {
@@ -195,9 +202,11 @@
                     "commands" : ["sleep 2", "python3 client.py client 4 udp_enabled"],
                     "outgoing_connections" : ["server"]
                 },
+                //This testcase uses a custom router. This container must be named router
+                // and will automatically be connected up correctly.
                 {
                     "container_name" : "router",
-                    "commands" : ["python3 router.py"]
+                    "commands" : ["python3 custom_router.py"]
                 }
             ],
             "points" : 5,
@@ -209,6 +218,15 @@
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
                     "deduction" : 1.0
+                },
+                //Adding this "sequence_diagram" filecheck will display a sequence diagram
+                // of messages passed to the student.
+                {
+                    "sequence_diagram" : true,
+                    "type" : "FileCheck",
+                    "title" : "Sequence Diagram Text File",
+                    "actual_file" : "router/sequence_diagram.txt",
+                    "points" : 0
                 }
             ]
         }
