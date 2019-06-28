@@ -63,7 +63,7 @@ class custom_router(submitty_router):
       data['forward_time'] = data['forward_time'] + timedelta(milliseconds=milliseconds_dela)
 
       # OPTIONAL: add a message to the student's sequence diagram that lets them know about the delay
-       data['diagram_label'] = "Delayed {0} ms".format(milliseconds_dela)
+      data['diagram_label'] = "Delayed {0} ms".format(milliseconds_dela)
 
     #We drop 1/10th of packets
     elif random.randint(1,10) == 10:
