@@ -1,6 +1,6 @@
 {
     "autograding" : {
-        "submission_to_compilation" : ["CMakeLists.txt"]
+        "submission_to_compilation" : ["CMakeLists.txt", "*.cpp", "*.h"]
     },
     "max_submission_size" : 1000000,
     "testcases" : [
