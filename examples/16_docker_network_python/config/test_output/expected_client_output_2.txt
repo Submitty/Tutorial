@@ -1,5 +1,0 @@
-Listening on port 9001 for incoming tcp connections
-Sending 'not ping' to server
-Recieved 'Invalid Message 'not ping'' from server
-Cleaning up after myself.
-Shutting down.
