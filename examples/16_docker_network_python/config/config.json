@@ -97,6 +97,14 @@
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
                     "deduction" : 0.5
+                },
+                {
+                    "method" : "diff",
+                    "actual_file" : "charlie/STDOUT.txt",
+                    "expected_file" : "charlie_simple.txt",
+                    "failure_message" : "ERROR: Your code did not match the expected output.",
+                    "show_message" : "on_failure",
+                    "deduction" : 0.5
                 }
             ]
         },
@@ -180,6 +188,15 @@
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
                     "deduction" : 0.5
+                },
+                //Adding this "sequence_diagram" filecheck will display a sequence diagram
+                // of messages passed to the student.
+                {
+                    "sequence_diagram" : true,
+                    "type" : "FileCheck",
+                    "title" : "Sequence Diagram Text File",
+                    "actual_file" : "router/sequence_diagram.txt",
+                    "points" : 0
                 }
             ]
         },
@@ -263,6 +280,13 @@
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
                     "deduction" : 0.5
+                },
+                {
+                    "sequence_diagram" : true,
+                    "type" : "FileCheck",
+                    "title" : "Sequence Diagram Text File",
+                    "actual_file" : "router/sequence_diagram.txt",
+                    "points" : 0
                 }
             ]
         },
@@ -297,6 +321,13 @@
                     // In this example, we want the server to start before the client, so we add a sleep command.
                     "commands" : ["python3 client.py"]
                     // By not specifying a outgoing_connections array, we allow ourselves to connect to all nodes on the network
+                },
+                {
+                    "sequence_diagram" : true,
+                    "type" : "FileCheck",
+                    "title" : "Sequence Diagram Text File",
+                    "actual_file" : "router/sequence_diagram.txt",
+                    "points" : 0
                 }
             ],
             "dispatcher_actions" : [
@@ -351,6 +382,13 @@
                     "failure_message" : "ERROR: Your code did not match the expected output.",
                     "show_message" : "on_failure",
                     "deduction" : 0.5
+                },
+                {
+                    "sequence_diagram" : true,
+                    "type" : "FileCheck",
+                    "title" : "Sequence Diagram Text File",
+                    "actual_file" : "router/sequence_diagram.txt",
+                    "points" : 0
                 }
             ]
         }
