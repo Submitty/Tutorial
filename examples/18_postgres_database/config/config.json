@@ -45,6 +45,7 @@
         },
         {
           "container_name": "main",
+          "container_image" : "submitty/tutorial:database_client",
           "commands": ["python3 sql_runner.py"]
         }
       ]
