@@ -35,37 +35,56 @@
                    //it is recommended that programs with GUIs begin with
                    //an extra delay to allow student code time to fully 
                    //initialize. 
-                   "delay 2",
+                   {
+                    "action" : "delay",
+                    "seconds" : 2
+                   },
                    //This command will screenshot the student's window.
                    //Pair it with the validation below to show it to 
                    //display it to the students.
-                   "screenshot",
+                   {
+                      "action" : "screenshot"
+                   },
                    //The type command will submitty the provided characters
                    //as keyboard input to the student's window.
-		               "type 'Submitty'",
+		               {
+                      "action" : "type",
+                      "string" : "Submitty"
+                   },
                    //This screenshot should show the effects of the type command
                    //above
-                   "screenshot",
+                   {
+                      "action" : "screenshot"
+                   },
                    //We will now move the mouse (in pixels relative to the upper
                    //left hand corner of the screen). This location correlates with
                    //where the student's ok button should be. Note that we could have
                    //required the student to map the button to a specific hotkey and typed
                    //that instead.
-                   "mouse move 200 75",
+                   {
+                      "action" : "move mouse",
+                      "end_x" : 200,
+                      "end_y" : 75
+                   },
                    //This delay is added merely so that instructors can watch the grading
                    //happen, in practice it is unnecessary.
-                   "delay 1",
+                   {
+                      "action" : "delay",
+                      "seconds" : 1
+                   },
                    //now we click the ok button.
-		               "click",
+                   {
+                      "action" : "click"
+                   },
                    //This screenshot should show the effect of the previous command.
-                   "screenshot",
-                   "delay 1",
-                   //The no clamp option allows us to move the mouse 'outside' of the window
-                   //It is recommended that this option only be used after much testing to avoid
-                   //unwelcome interactions. In this case, it was necessary to access the 'x' in
-                   //border of the student's screen.
-                   "mouse move no clamp 10 -10", 
-                   "click"],
+                   {
+                      "action" : "screenshot"
+                   },
+                   {
+                    "action" : "delay",
+                    "seconds" : 1
+                   }
+                 ],
       // Point value of this testcase.
       "points" : 10, 
       //These validation steps check for the screenshots taken above, which are created

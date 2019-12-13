@@ -29,45 +29,139 @@
                        //programs additional time to initialize. Actions are taken beginning
                        //at window load time. Note that all actions are padded with a .1 sec
                        //delay.
-                       "delay 1", 
+                       {
+                            "action" : "delay",
+                            "seconds" : 1
+                       },
                         //The click and drag delta command moves a specific distance from the
                         //current mouse position. For additional information about actions 
                         //and their syntax, please view the submitty wiki.
-                        "click and drag delta 100 0",
+                        {
+                            "action" : "click and drag delta",
+                            "end_x" : 100
+                        },
                         //This program uses many unecessarily delays. Experiment by removing
                         //them.
-                        "delay 1",
-                        "click and drag delta -100 0",
-                        "delay 1",
-                        "click and drag delta  0 100",
-                        "delay 1",
-                        "click and drag delta 0 -100",
-                        "delay 1",
-                        "click and drag delta 1000 0",
-                        "delay 1",
-                        "click and drag delta -1000 0",
-                        "delay 1",
-                        "click and drag delta 0 160",
-                        "delay 1",
-                        "click and drag delta 0 -160",
-                        "delay 1",
-                        "click and drag delta 300 300",
-                        "delay 1",
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag delta",
+                            "end_x" : -100
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag delta",
+                            "end_y" : 100
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag delta",
+                            "end_y" : -100
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag delta",
+                            "end_x" : 1000
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag delta",
+                            "end_x" : -1000
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag delta",
+                            "end_y" : 160
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag delta",
+                            "end_y" : -160
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag delta",
+                            "end_x" : 300,
+                            "end_y" : 300
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
                         //moves the mouse to 0,0 (upper left) on the window.
-                        "origin",
-                        "delay 1",
+                        {
+                            "action" : "origin"
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
                         //Centers the mouse on the screen
-                        "center",
-                        "delay 1",
-                        "mouse move 10 200",
-                        "delay 1",
-                        "click and drag 10 10 150 150",
-                        "delay 1",
-                        "click and drag 160 160",
+                        {
+                            "action" : "center"
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "move mouse",
+                            "end_x" : 10,
+                            "end_y" : 200
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag",
+                            "start_x" : 10,
+                            "start_y" : 10,
+                            "end_x" : 150,
+                            "end_y" : 150
+                        },
+                        {
+                            "action" : "delay",
+                            "seconds" : 1
+                        },
+                        {
+                            "action" : "click and drag",
+                            "end_x" : 160,
+                            "end_y" : 160
+                        },
                         //takes a screenshot, labeled sequentially starting from 0.
-                        "screenshot",
+                        {
+                            "action" : "screenshot"
+                        },
                         //In the provided application, q indicates a program quit.
-                        "type 'q'"],
+                        {
+                            "action" : "key",
+                            "key_combination" : "q"
+                        }
+                    ],
             "points" : 1,
             "validation": [
                 {
@@ -85,10 +179,22 @@
             "title" : "Graphics program 1",
             "command" : "./a.out -input sierpinski_triangle.txt -size 400 -iters 0 -cubes",
             "actions" : [
-                        "click and drag delta 50 -125",
-                        "delay 1",
-                        "screenshot",
-                        "type 'q'"
+                            {
+                                "action" : "click and drag delta",
+                                "end_x" : 50,
+                                "end_y" : -125
+                            },
+                            {
+                              "action" : "delay",
+                              "seconds" : 1
+                            },
+                            {
+                                "action" : "screenshot"
+                            },
+                            {
+                                "action" : "key",
+                                "key_combination" : "q"
+                            }
                         ],
             "points" : 1,
             "validation": [
