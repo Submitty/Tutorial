@@ -1,5 +1,7 @@
 {
     "max_submission_size" : 1000000,
+    // By default, show students a list of the actions taken for each testcase.
+    "publish_actions" : true,
     "testcases" : [
 
         // *************** COMPILATION *****************
@@ -178,6 +180,8 @@
         {
             "title" : "Graphics program 1",
             "command" : "./a.out -input sierpinski_triangle.txt -size 400 -iters 0 -cubes",
+            // For this testcase, do not show students a list of actions
+            "publish_actions" : false,
             "actions" : [
                             {
                                 "action" : "click and drag delta",
