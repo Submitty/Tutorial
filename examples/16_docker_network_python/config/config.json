@@ -8,10 +8,6 @@
       //States that a given testcase uses a router by default. (Default value is true)
       "use_router" : true
     },
-
-    "autograding" : {
-        "work_to_details" : [ "**/*.txt" ]
-    },
     "resource_limits" : {
         "RLIMIT_NPROC" : 100,
         "RLIMIT_STACK" : 10000000,

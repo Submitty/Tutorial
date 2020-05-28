@@ -7,8 +7,7 @@
     "use_router": false
   },
   "autograding": {
-    "submission_to_runner": ["**/*.py", "**/*.txt","**/*.sql"],
-    "work_to_details": ["**/*.txt"]
+    "submission_to_runner": ["**/*.py", "**/*.txt","**/*.sql"]
   },
   "testcases": [
     {

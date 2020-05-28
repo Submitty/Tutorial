@@ -1,8 +1,4 @@
 {
-
-  "autograding" : {
-    "work_to_details" : ["**/*.txt"]
-  },
   "autograding_method" : "docker",
   "container_options" : {
       //States that a given testcase uses a router by default. (Default value is true)
