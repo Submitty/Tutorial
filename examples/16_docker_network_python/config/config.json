@@ -2,6 +2,8 @@
     // autograding_method must be docker in order for networking to work. If you forget it,
     // your assignment should fail to build.
     "autograding_method" : "docker",
+    // By default, show students a list of the dispatcher actions taken for each testcase.
+    "publish_actions" : true,
     "container_options" : {
       //States that a given testcase uses a router by default. (Default value is true)
       "use_router" : true
@@ -18,6 +20,8 @@
     // Each testcase creates a new, unique set of docker containers and networks.
     "testcases" : [
         {
+            // For this testcase, do not show students a list of dispatcher actions
+            "publish_actions" : false,
             //Despite the default being true, this testcase will not use a router.
             "use_router" : false,
             "title" : "Simple Testcase, No Router",
