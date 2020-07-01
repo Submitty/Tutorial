@@ -27,7 +27,7 @@
                     // (e.g. when specifying outgoing connections). By default containers are named
                     // container0, container1, container2, etc.
                     "container_name" : "alpha",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     //outgoing_connections list the containers that this container is allowed to network to.
                     "outgoing_connections" : ["beta", "charlie"]
                     // You can specify a docker image here, and if it is built on submitty, this container
@@ -37,19 +37,19 @@
                 },
                 {
                     "container_name" : "beta",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "charlie"]
                 },
                 {
                     "container_name" : "charlie",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "beta"]
                 },
                 {
                     "container_name" : "client",
                     // It can be important to ensure your container's start in the correct order.
                     // In this example, we want the server to start before the client, so we add a sleep command.
-                    "commands" : ["python3 client.py"]
+                    "commands" : ["python3 -u client.py"]
                     // By not specifying a outgoing_connections array, we allow ourselves to connect to all nodes on the network
                 }
             ],
@@ -118,7 +118,7 @@
                     // (e.g. when specifying outgoing connections). By default containers are named
                     // container0, container1, container2, etc.
                     "container_name" : "alpha",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     //outgoing_connections list the containers that this container is allowed to network to.
                     "outgoing_connections" : ["beta", "charlie"]
                     // You can specify a docker image here, and if it is built on submitty, this container
@@ -128,19 +128,19 @@
                 },
                 {
                     "container_name" : "beta",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "charlie"]
                 },
                 {
                     "container_name" : "charlie",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "beta"]
                 },
                 {
                     "container_name" : "client",
                     // It can be important to ensure your container's start in the correct order.
                     // In this example, we want the server to start before the client, so we add a sleep command.
-                    "commands" : ["python3 client.py"]
+                    "commands" : ["python3 -u client.py"]
                     // By not specifying a outgoing_connections array, we allow ourselves to connect to all nodes on the network
                 }
             ],
@@ -193,15 +193,14 @@
                 // of messages passed to the student.
                 {
                     "sequence_diagram" : true,
-                    "type" : "FileCheck",
+                    "method" : "errorIfEmpty",
                     "title" : "Sequence Diagram Text File",
                     "actual_file" : "router/sequence_diagram.txt",
-                    "points" : 0
+                    "deduction" : 0.0
                 }
             ]
         },
         {
-            //Despite the default being true, this testcase will not use a router.
             "use_router" : true,
             "title" : "Moderate Testcase, With Router",
             "containers" : [
@@ -210,7 +209,7 @@
                     // (e.g. when specifying outgoing connections). By default containers are named
                     // container0, container1, container2, etc.
                     "container_name" : "alpha",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     //outgoing_connections list the containers that this container is allowed to network to.
                     "outgoing_connections" : ["beta", "charlie"]
                     // You can specify a docker image here, and if it is built on submitty, this container
@@ -220,20 +219,24 @@
                 },
                 {
                     "container_name" : "beta",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "charlie"]
                 },
                 {
                     "container_name" : "charlie",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "beta"]
                 },
                 {
                     "container_name" : "client",
                     // It can be important to ensure your container's start in the correct order.
                     // In this example, we want the server to start before the client, so we add a sleep command.
-                    "commands" : ["python3 client.py"]
+                    "commands" : ["python3 -u client.py"]
                     // By not specifying a outgoing_connections array, we allow ourselves to connect to all nodes on the network
+                },
+                {
+                    "container_name" : "router",
+                    "commands" : ["python3 -u custom_router.py"]
                 }
             ],
             "dispatcher_actions" : [
@@ -283,10 +286,10 @@
                 },
                 {
                     "sequence_diagram" : true,
-                    "type" : "FileCheck",
+                    "method" : "errorIfEmpty",
                     "title" : "Sequence Diagram Text File",
                     "actual_file" : "router/sequence_diagram.txt",
-                    "points" : 0
+                    "deduction" : 0.0
                 }
             ]
         },
@@ -297,37 +300,30 @@
             "containers" : [
                 {
                     "container_name" : "alpha",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["beta", "charlie", "delta"]
                 },
                 {
                     "container_name" : "beta",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "charlie", "delta"]
                 },
                 {
                     "container_name" : "charlie",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "beta", "delta"]
                 },
                 {
                     "container_name" : "delta",
-                    "commands" : ["python3 server.py"],
+                    "commands" : ["python3 -u server.py"],
                     "outgoing_connections" : ["alpha", "beta", "charlie"]
                 },
                 {
                     "container_name" : "client",
                     // It can be important to ensure your container's start in the correct order.
                     // In this example, we want the server to start before the client, so we add a sleep command.
-                    "commands" : ["python3 client.py"]
+                    "commands" : ["python3 -u client.py"]
                     // By not specifying a outgoing_connections array, we allow ourselves to connect to all nodes on the network
-                },
-                {
-                    "sequence_diagram" : true,
-                    "type" : "FileCheck",
-                    "title" : "Sequence Diagram Text File",
-                    "actual_file" : "router/sequence_diagram.txt",
-                    "points" : 0
                 }
             ],
             "dispatcher_actions" : [
@@ -385,10 +381,10 @@
                 },
                 {
                     "sequence_diagram" : true,
-                    "type" : "FileCheck",
+                    "method" : "errorIfEmpty",
                     "title" : "Sequence Diagram Text File",
                     "actual_file" : "router/sequence_diagram.txt",
-                    "points" : 0
+                    "deduction" : 0.0
                 }
             ]
         }
