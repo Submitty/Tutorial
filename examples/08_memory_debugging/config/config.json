@@ -1,6 +1,10 @@
 {
-    "testcases" : [
+    "autograding_method": "docker",
+    "container_options": {
+        "container_image": "submittyrpi/csci1200:default"
+    },
 
+    "testcases" : [
         // Grading of C++ code can also be supplemented with the use of a memory
         // debugger. Here, the tool Dr. Memory is used to penalize student code
         // containing memory errors.

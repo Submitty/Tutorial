@@ -1,4 +1,9 @@
 {
+  "autograding_method": "docker",
+  "container_options": {
+      "container_image": "submittyrpi/csci1200:default"
+  },
+
   // For compiled languages, typically two testcases are used to allow points
   // to be asssigned independently for compilation and execution.
   "testcases" : [
