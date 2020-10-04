@@ -4,6 +4,11 @@
         "submission_to_runner" : [ "*.cpp", "*.c", "*.hpp", "*.h", "*.c", "*.hpp" ]
     },
 
+    "autograding_method": "docker",
+    "container_options": {
+        "container_image": "submittyrpi/csci1200:default"
+    },
+
     // Static analysis can also be performed upon C++ code.
     // Here, no compilation is performed at all; instead, student code is examined to
     // ensure that it does not use either the "goto" or "auto" keywords.
