@@ -10,7 +10,7 @@
 
   "testcases" : [
     // Furthermore, instructors can request students to write their own JUnit 
-    // test cases, and test coverage can be measured and graded using EMMA, a 
+    // test cases, and test coverage can be measured and graded using JaCoCo, a 
     // free Java code coverage tool. This can be done alongside normal 
     // instructor-provided JUnit test-based grading.
     {
@@ -80,51 +80,5 @@
         }
       ]
     }
-    /*,
-    Sorry! Emma is no longer currently supported.
-    // ------------------------------------------------------------------------------
-    // COVERAGE USING EMMA
-    {
-      "title" : "EMMA - Instrument of Student Code, Run JUnit Tests, and Generate Coverage Report",
-      "command" : "java -cp submitty_emma.jar emma instr -m overwrite -ip hw0",
-      "points" : 10,
-      "validation" : [ 
-          { 
-              "method" : "EmmaInstrumentationGrader",
-              "actual_file" : "STDOUT.txt",
-              "deduction" : 0.0
-          },
-          { 
-              "method" : "MultipleJUnitTestGrader",
-              "actual_file" : "STDOUT_0.txt"
-          },
-          {
-            "method" : "errorIfEmpty",
-            "actual_file" : "STDOUT_1.txt",
-            "description" : "EclEmma report generation output",
-            "deduction" : 0.0
-          },
-          {
-            "method" : "EmmaCoverageReportGrader",
-            "actual_file" : "emma_report.txt",
-            "description" : "EclEmma coverage report",
-            "coverage_threshold" : 90
-          }
-      ]
-    },
-    {
-      "title" : "EMMA - Instructor JUnit Tests",
-      "command" :  "java -noverify -cp submitty_junit.jar:submitty_hamcrest.jar:submitty_emma.jar:. org.junit.runner.JUnitCore hw0.test.FactorialTest",
-      "points" : 6,
-      "validation" : [
-        {
-          "method" : "JUnitTestGrader",
-          "actual_file" : "STDOUT.txt",
-          "num_tests" : 4
-        }
-      ]
-    }
-    */
-
   ]
 }
