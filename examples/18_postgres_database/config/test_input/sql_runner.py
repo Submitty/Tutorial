@@ -85,14 +85,16 @@ def main():
             query = load_query(input_file)
             result = run_query(curr, query)
             cost, time = run_cost(curr, query)
-            log_query_metrics(f"Query {num:d} run in {time:.3f} sec with cost {cost:.2f}")            
-            
+            conn.commit()
+            log_query_metrics(f"Query {num:d} run in {time:.3f} sec with cost {cost:.2f}")
+
             with open(output_file, 'w', newline='', encoding='utf-8') as result_file:
                 writer = csv.writer(result_file, lineterminator='\n')
                 writer.writerow([attr for attr in result[0].keys()])
                 for t in result:
                     writer.writerow(t)
         except:
+            conn.rollback()
             err("Solution for %d raised exception %s" % (num, sys.exc_info()))
 
 
