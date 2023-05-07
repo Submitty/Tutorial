@@ -7,7 +7,7 @@
       // Commands to run (in order). These are not shell commands, although 
       // they support some common shell wildcards. This can either be a 
       // list or a single string.
-      "command" : [ "python *.py" ],
+      "command" : [ "python3 *.py" ],
 
       // Point value of this testcase.
       "points" : 10, 
