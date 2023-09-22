@@ -11,12 +11,23 @@
         {
             "type" : "Compilation",
             "title" : "C++ - Compilation (for Dr Memory)",
-            "command" : "clang++ -g -Wall -o a.out *.cpp",
+
+            // ORIGINAL
+            //"command" : "clang++ -g -Wall -o a.out *.cpp",
+
+            // TEMPORARY WORKAROUND
+            "command" : "clang++ -g -gdwarf-4 -Wall -o a.out *.cpp",
+            // NOTE: Compiling with the -gdwarf-4 option is required with g++ 11+
+            // so that DrMemory can print source code line numbers with.
+            // See also:
+            // https://github.com/DynamoRIO/drmemory/issues/2485
+
             "executable_name" : "a.out",
             "points" : 2
         },
         {
             "title" : "Under Dr Memory",
+            "command" : "drmemory -- ./a.out",
             "command" : "drmemory -- ./a.out",
             "points" : 5,
             "validation" : [
