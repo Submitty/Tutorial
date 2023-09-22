@@ -28,7 +28,6 @@
         {
             "title" : "Under Dr Memory",
             "command" : "drmemory -- ./a.out",
-            "command" : "drmemory -- ./a.out",
             "points" : 5,
             "validation" : [
                 {
