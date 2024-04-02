@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cypress Testing</title>
+    <style>
+        body{
+            text-align: center;
+            margin: 100px auto;
+        }
+        .btn{
+            width: 20vw;
+            height: 20vh;
+            background-color: fuchsia;
+            border: none;
+            border-radius: 60px;
+            font-size: 60px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button data-test="btn-test" class="btn">0</button>
+
+</body>
+<script>
+    let count = 0;
+    const btn = document.querySelector(".btn");
+    btn.addEventListener("click", ()=>{
+        count++;
+        btn.textContent = count;
+    })
+</script>
+</html>
