@@ -1,0 +1,21 @@
+{
+    "name": "testing",
+    "version": "1.0.0",
+    "description": "",
+    "main": "cypress.config.js",
+    "scripts": {
+      "start": "http-server",
+      "test": "cypress run  --headless --reporter mochawesome && node parser.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "cypress": "^13.7.1",
+      "http-server": "^14.1.1",
+      "mochawesome": "^7.1.3",
+      "run-p": "^0.0.0",
+      "start": "^5.1.0",
+      "test": "^3.3.0"
+    }
+  }
+  
