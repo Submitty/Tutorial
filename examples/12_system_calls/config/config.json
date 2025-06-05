@@ -17,6 +17,15 @@
 
     "testcases" : [
         {
+            "allow_system_calls" : [
+                "PROCESS_CONTROL_NEW_PROCESS_THREAD",
+                "PROCESS_CONTROL_ADVANCED",
+                "FILE_MANAGEMENT_MOVE_DELETE_RENAME_FILE_DIRECTORY",
+                "FILE_MANAGEMENT_PERMISSIONS",
+                "FILE_MANAGEMENT_RARE",
+                "COMMUNICATIONS_AND_NETWORKING_SIGNALS",
+                "COMMUNICATIONS_AND_NETWORKING_INTERPROCESS_COMMUNICATION"
+            ],
             "type" : "Compilation",
             "title" : "Compilation",
             "command" : "/usr/bin/gcc -Wall -o a.out *.c",
