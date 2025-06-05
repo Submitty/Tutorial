@@ -8,10 +8,11 @@
 
     // Allow the student code to use IPC and multiprocessing system calls.
     "allow_system_calls" : [
-        // This allows us to use ipc, pipe, semop, shmat, shmtcl, ...
-        "ALLOW_SYSTEM_CALL_CATEGORY_COMMUNICATIONS_AND_NETWORKING_INTERPROCESS_COMMUNICATION",
-        // This allows us to use clone, execve, fork, set_tid_address, vfork
-        "ALLOW_SYSTEM_CALL_CATEGORY_PROCESS_CONTROL_NEW_PROCESS_THREAD"
+        "COMMUNICATIONS_AND_NETWORKING_INTERPROCESS_COMMUNICATION",
+        "COMMUNICATIONS_AND_NETWORKING_SIGNALS",
+        "FILE_MANAGEMENT_MOVE_DELETE_RENAME_FILE_DIRECTORY",
+        "PROCESS_CONTROL_NEW_PROCESS_THREAD",
+        "PROCESS_CONTROL_ADVANCED"
     ],
 
     "testcases" : [
