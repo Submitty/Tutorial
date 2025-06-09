@@ -1,0 +1,123 @@
+{
+	"required_capabilities": "python",
+
+    "testcases" : [
+        {
+            "title" : "Custom Input 01",
+            "details" : "python3 *.py custom_test_input_01.txt",
+            "command" : "python3 *.py custom_test_input_01.txt",
+            "solution_commands" : ["python3 solution.py custom_test_input_01.txt 1> output.txt"],
+            "points" : 5,
+            "hidden" : true,
+            "validation" : [
+                {
+                    "method" : "diff",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Program Output",
+                    "expected_file" : "output.txt"
+                }
+            ]
+        },
+        {
+            "title" : "Custom Input 02",
+            "details" : "python3 *.py < custom_test_input_02.txt",
+            "command" : "python3 *.py < custom_test_input_02.txt",
+            "solution_commands" : ["python3 solution.py < custom_test_input_02.txt 1> output.txt"],
+            "points" : 5,
+            "hidden" : true,
+            "validation" : [
+                {
+                    "method" : "diff",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Program Output",
+                    "expected_file" : "output.txt"
+                }
+            ]
+        },
+        {
+            "title" : "Random Input #1",
+            "input_generation_commands": [
+                "python3 generator.py 1> randominput.txt"
+            ],
+            "command" : "python3 *.py < randominput.txt",
+            "solution_commands" : ["python3 solution.py < randominput.txt > output.txt"],
+            "points" : 4,
+            "validation" : [
+                {
+                    "method" : "diff",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Program Output",
+                    "expected_file" : "output.txt"
+                }
+            ]
+        },
+        {
+            "title" : "Random Input #2",
+            "input_generation_commands": [
+                "python3 generator.py 1> randominput.txt"
+            ],
+            "command" : "python3 *.py < randominput.txt",
+            "solution_commands" : ["python3 solution.py < randominput.txt > output.txt"],
+            "points" : 4,
+            "validation" : [
+                {
+                    "method" : "diff",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Program Output",
+                    "expected_file" : "output.txt"
+                }
+            ]
+        },
+        {
+            "title" : "Random Input #3",
+            "input_generation_commands": [
+                "python3 generator.py 1> randominput.txt"
+            ],
+            "command" : "python3 *.py < randominput.txt",
+            "solution_commands" : ["python3 solution.py < randominput.txt > output.txt"],
+            "points" : 4,
+            "validation" : [
+                {
+                    "method" : "diff",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Program Output",
+                    "expected_file" : "output.txt"
+                }
+            ]
+        },
+        {
+            "title" : "Random Input #4",
+            "input_generation_commands": [
+                "python3 generator.py 1> randominput.txt"
+            ],
+            "command" : "python3 *.py < randominput.txt",
+            "solution_commands" : ["python3 solution.py < randominput.txt > output.txt"],
+            "points" : 4,
+            "validation" : [
+                {
+                    "method" : "diff",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Program Output",
+                    "expected_file" : "output.txt"
+                }
+            ]
+        },
+        {
+            "title" : "Random Input #5",
+            "input_generation_commands": [
+                "python3 generator.py 1> randominput.txt"
+            ],
+            "command" : "python3 *.py < randominput.txt",
+            "solution_commands" : ["python3 solution.py < randominput.txt > output.txt"],
+            "points" : 4,
+            "validation" : [
+                {
+                    "method" : "diff",
+                    "actual_file" : "STDOUT.txt",
+                    "description" : "Program Output",
+                    "expected_file" : "output.txt"
+                }
+            ]
+        }
+    ]
+}
