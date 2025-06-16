@@ -6,7 +6,7 @@
 
     "autograding_method": "docker",
     "container_options": {
-        "container_image": "submittyrpi/csci1200:default"
+        "container_image": "submitty/autograding:latest"
     },
 
     // Static analysis can also be performed upon C++ code.
@@ -16,8 +16,8 @@
         {
             
             "title" : "Check for goto and auto",
-            "command" : [ "submitty_count token -l c Goto *.cpp",
-                          "submitty_count token -l c Auto *.cpp" ],
+            "command" : [ "submitty_count_ts -l cpp node auto *.cpp",
+                          "submitty_count_ts -l cpp node auto *.cpp" ],
             "points" : 2,
             "validation" : [
                 {
