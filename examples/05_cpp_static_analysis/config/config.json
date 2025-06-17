@@ -16,7 +16,7 @@
         {
             
             "title" : "Check for goto and auto",
-            "command" : [ "submitty_count_ts -l cpp node auto *.cpp",
+            "command" : [ "submitty_count_ts -l cpp node goto *.cpp",
                           "submitty_count_ts -l cpp node auto *.cpp" ],
             "points" : 2,
             "validation" : [
