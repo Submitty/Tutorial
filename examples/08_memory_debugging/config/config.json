@@ -1,7 +1,7 @@
 {
     "autograding_method": "docker",
     "container_options": {
-        "container_image": "submittyrpi/csci1200:default"
+        "container_image": "submitty/autograding-default:latest"
     },
 
     "testcases" : [
@@ -11,17 +11,7 @@
         {
             "type" : "Compilation",
             "title" : "C++ - Compilation (for Dr Memory)",
-
-            // ORIGINAL
-            //"command" : "clang++ -g -Wall -o a.out *.cpp",
-
-            // TEMPORARY WORKAROUND
-            "command" : "clang++ -g -gdwarf-4 -Wall -o a.out *.cpp",
-            // NOTE: Compiling with the -gdwarf-4 option is required with g++ 11+
-            // so that DrMemory can print source code line numbers with.
-            // See also:
-            // https://github.com/DynamoRIO/drmemory/issues/2485
-
+            "command" : "clang++ -g -Wall -o a.out *.cpp",
             "executable_name" : "a.out",
             "points" : 2
         },

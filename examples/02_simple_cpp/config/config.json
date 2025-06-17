@@ -1,7 +1,7 @@
 {
   "autograding_method": "docker",
   "container_options": {
-      "container_image": "submittyrpi/csci1200:default"
+      "container_image": "submitty/clang:latest"
   },
 
   // For compiled languages, typically two testcases are used to allow points
