@@ -233,11 +233,12 @@
                     // In this example, we want the server to start before the client, so we add a sleep command.
                     "commands" : ["python3 -u client.py"]
                     // By not specifying a outgoing_connections array, we allow ourselves to connect to all nodes on the network
-                },
+                }
+                /*,
                 {
                     "container_name" : "router",
                     "commands" : ["python3 -u custom_router.py"]
-                }
+                }*/
             ],
             "dispatcher_actions" : [
               {
