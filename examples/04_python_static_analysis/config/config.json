@@ -7,9 +7,12 @@
       // The first is to execute the student code, the second is to count the number of calls to the
       // "print" function.
       "command" : [ "python3 *.py",
-	            "submitty_count token -l python Equal *.py",
-		    "submitty_count token -l python Asterisk *.py",
-		    "submitty_count token -l python Plus *.py" ],
+				// "submitty_count token -l python Equal *.py",
+		    // "submitty_count token -l python Asterisk *.py",
+		    // "submitty_count token -l python Plus *.py" ],
+		    	"submitty_count_ts -l python node = *.py",
+		    	"submitty_count_ts -l python node * *.py",
+		    	"submitty_count_ts -l python node + *.py" ],
       "points" : 4,
       "validation" : [
         // First, ensure that the student received the correct answer.
