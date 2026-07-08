@@ -1,8 +1,4 @@
 {
-	"autograding_method": "docker",
-	"container_options": {
-  "container_image": "dagemcn/dockerimages:default-test"
- 	},
   "testcases" : [
     {
       "title" : "Python - Static Analysis",
@@ -34,7 +30,7 @@
           // against the provided term (here, "greater-than-or-equal" is used).
 	  "comparison" : "ge",
           // The integer against which to compare.
-	  "term" : 2,
+	  "term" : 5,
 
           // Message to the student.
 	  "failure_message" : "Re-read the problem instructions.",
@@ -48,7 +44,7 @@
 	  "actual_file" : "STDOUT_2.txt",
 	  "description" : "Number of multiplications",
 	  "comparison" : "ge",
-	  "term" : 2,
+	  "term" : 7,
 	  "failure_message" : "Re-read the problem instructions.",
 	  "show_message" : "on_failure",
 	  "show_actual" : "never"

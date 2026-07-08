@@ -20,7 +20,7 @@
 //           "description" : "Loop Depth",
 
 //           "comparison" : "ge",
-//           "term" : 0,
+//           "term" : 3 ,
 
 //           // "failure_message" : "Must have less than four nested loops",
 //           // "show_message" : "always",
