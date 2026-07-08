@@ -1,4 +1,8 @@
 {
+	"autograding_method": "docker",
+	"container_options": {
+  "container_image": "dagemcn/dockerimages:default-test"
+ 	},
   "testcases" : [
     {
       "title" : "Python - Static Analysis",
@@ -7,12 +11,9 @@
       // The first is to execute the student code, the second is to count the number of calls to the
       // "print" function.
       "command" : [ "python3 *.py",
-				// "submitty_count token -l python Equal *.py",
-		    // "submitty_count token -l python Asterisk *.py",
-		    // "submitty_count token -l python Plus *.py" ],
-		    	"submitty_count_ts -l python node = *.py",
-		    	"submitty_count_ts -l python node * *.py",
-		    	"submitty_count_ts -l python node + *.py" ],
+		    	"submitty_count_ts python node = *.py",
+		    	"submitty_count_ts python node * *.py",
+		    	"submitty_count_ts python node + *.py" ],
       "points" : 4,
       "validation" : [
         // First, ensure that the student received the correct answer.
@@ -33,7 +34,7 @@
           // against the provided term (here, "greater-than-or-equal" is used).
 	  "comparison" : "ge",
           // The integer against which to compare.
-	  "term" : 5,
+	  "term" : 2,
 
           // Message to the student.
 	  "failure_message" : "Re-read the problem instructions.",
@@ -47,7 +48,7 @@
 	  "actual_file" : "STDOUT_2.txt",
 	  "description" : "Number of multiplications",
 	  "comparison" : "ge",
-	  "term" : 7,
+	  "term" : 2,
 	  "failure_message" : "Re-read the problem instructions.",
 	  "show_message" : "on_failure",
 	  "show_actual" : "never"
