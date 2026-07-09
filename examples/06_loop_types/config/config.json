@@ -3,7 +3,7 @@
     {
       "title" : "Python - Distinguish for and while Loops",
       "command" : [ "submitty_count_ts -l python node for *.py",
-                    "submitty_count_ts -l python node While *.py" ],
+                    "submitty_count_ts -l python node while *.py" ],
       "points" : 2,
       "validation" : [
         {
