@@ -1,27 +1,32 @@
+// FIXME: In the process of deprecating submitty_count and replacing it with submitty_count_ts, the loop depth functionality
+// was lost. This example should either be updated or removed.
 {
   "testcases" : [
-    {
-      "title" : "Python - Determine Loop Depth",
+  ]
+//     {
+//       "title" : "Python - Determine Loop Depth",
 
       // Here, an instructor-provided static analysis script is used, rather
       // than one of the provided scripts like count_token and count_function.
       // This works in much the same way as those scripts.
-      "command" : [ "submitty_count -l python depth loop *.py" ],
-      "points" : 10,
-      "validation" : [
-        {
-          "method" : "intComparison",
-          "actual_file" : "STDOUT.txt",
-          "description" : "Loop Depth",
+      // "command" : [ "submitty_count -l python depth loop *.py" ],
+      // ""
+//       "command" : [ "submitty_count_ts -l python call print *.py" ],
+//       "points" : 10,
+//       "validation" : [
+//         {
+//           "method" : "intComparison",
+//           "actual_file" : "STDOUT.txt",
+//           "description" : "Loop Depth",
 
-          "comparison" : "le",
-          "term" : 3,
+//           "comparison" : "ge",
+//           "term" : 3 ,
 
-          "failure_message" : "Must have less than four nested loops",
-          "show_message" : "always",
-          "show_actual" : "always"
-        }
-      ]
-    }
-  ]
+//           // "failure_message" : "Must have less than four nested loops",
+//           // "show_message" : "always",
+//           "show_actual" : "always"
+//         }
+//       ]
+//     }
+//   ]
 }
